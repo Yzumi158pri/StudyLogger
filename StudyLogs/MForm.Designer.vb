@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Form1
+Partial Class MForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,10 +22,27 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
-        AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
-        Text = "Form1"
+        cmd1 = New Button()
+        SuspendLayout()
+        ' 
+        ' cmd1
+        ' 
+        cmd1.Location = New Point(516, 254)
+        cmd1.Name = "cmd1"
+        cmd1.Size = New Size(94, 29)
+        cmd1.TabIndex = 0
+        cmd1.Text = "ボタンを押せ"
+        cmd1.UseVisualStyleBackColor = True
+        ' 
+        ' main
+        ' 
+        ClientSize = New Size(1185, 635)
+        Controls.Add(cmd1)
+        Name = "main"
+        ResumeLayout(False)
+
     End Sub
+
+    Friend WithEvents cmd1 As Button
 
 End Class
