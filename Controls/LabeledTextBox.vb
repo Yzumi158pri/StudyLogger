@@ -10,7 +10,7 @@ Public Class LabeledTextBox
     ''' </summary>
     <Category("デザイン")>
     <Description("ラベルの幅と高さを指定します")>
-    <DesignerSerializationVisibility(DesignerSerializationVisibility.Content)>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     Public Property LabelSize As Size
         Get
             Return Label1.Size
@@ -28,7 +28,7 @@ Public Class LabeledTextBox
     ''' </summary>
     <Category("デザイン")>
     <Description("ラベルの幅を指定します")>
-    <DesignerSerializationVisibility(DesignerSerializationVisibility.Content)>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     Public Property LabelWidth As Integer
         Get
             Return Label1.Width
@@ -46,7 +46,7 @@ Public Class LabeledTextBox
     ''' </summary>
     <Category("デザイン")>
     <Description("テキストボックスの幅と高さを指定します")>
-    <DesignerSerializationVisibility(DesignerSerializationVisibility.Content)>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     Public Property TextBoxSize As Size
         Get
             Return TextBox1.Size
@@ -61,7 +61,7 @@ Public Class LabeledTextBox
     ''' </summary>
     <Category("デザイン")>
     <Description("テキストボックスの幅を指定します")>
-    <DesignerSerializationVisibility(DesignerSerializationVisibility.Content)>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     Public Property TextBoxWidth As Integer
         Get
             Return TextBox1.Width
@@ -80,7 +80,7 @@ Public Class LabeledTextBox
     ''' </summary>
     <Category("表示")>
     <Description("ラベルに表示する文字列を設定します")>
-    <DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     Public Property LabelText As String
         Get
             Return Label1.Text
@@ -95,7 +95,7 @@ Public Class LabeledTextBox
     ''' </summary>
     <Category("表示")>
     <Description("テキストボックスの内容を設定します")>
-    <DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
     Public Property TextBoxText As String
         Get
             Return TextBox1.Text
