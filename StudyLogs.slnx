@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="Controls/MyControls.vbproj" Id="8844bffe-7250-4f81-ba6c-1a2c34029627" />
+  <Project Path="Outputs/MyLib.vbproj" Id="d3581d2a-246b-4829-9462-140310e7cf6d" />
   <Project Path="StudyLogs/StudyLogs.vbproj" />
 </Solution>
