@@ -24,15 +24,19 @@ Partial Class MForm
     Private Sub InitializeComponent()
         cmd1 = New Button()
         btnExit = New Button()
-        lblText1 = New MyControls.LabeledTextBox()
+        TextLabel1 = New MyControls.LabeledTextBox()
+        DateTimePicker1 = New DateTimePicker()
+        lblDate = New Label()
+        btnDisp = New Button()
+        btnOutput = New Button()
         SuspendLayout()
         ' 
         ' cmd1
         ' 
-        cmd1.Location = New Point(521, 321)
+        cmd1.Location = New Point(962, 594)
         cmd1.Name = "cmd1"
         cmd1.Size = New Size(94, 29)
-        cmd1.TabIndex = 0
+        cmd1.TabIndex = 3
         cmd1.Text = "ボタンを押せ"
         cmd1.UseVisualStyleBackColor = True
         ' 
@@ -41,21 +45,65 @@ Partial Class MForm
         btnExit.Location = New Point(1079, 594)
         btnExit.Name = "btnExit"
         btnExit.Size = New Size(94, 29)
-        btnExit.TabIndex = 1
+        btnExit.TabIndex = 4
         btnExit.Text = "終了"
         btnExit.UseVisualStyleBackColor = True
         ' 
-        ' lblText1
+        ' TextLabel1
         ' 
-        lblText1.Location = New Point(380, 195)
-        lblText1.Name = "lblText1"
-        lblText1.Size = New Size(207, 29)
-        lblText1.TabIndex = 2
+        TextLabel1.LabelSize = New Size(53, 27)
+        TextLabel1.LabelText = "入力"
+        TextLabel1.LabelWidth = 53
+        TextLabel1.Location = New Point(50, 105)
+        TextLabel1.Name = "TextLabel1"
+        TextLabel1.Size = New Size(345, 29)
+        TextLabel1.TabIndex = 1
+        TextLabel1.TextBoxSize = New Size(160, 27)
+        TextLabel1.TextBoxText = ""
+        TextLabel1.TextBoxWidth = 160
+        ' 
+        ' DateTimePicker1
+        ' 
+        DateTimePicker1.Location = New Point(102, 57)
+        DateTimePicker1.Name = "DateTimePicker1"
+        DateTimePicker1.Size = New Size(159, 27)
+        DateTimePicker1.TabIndex = 0
+        ' 
+        ' lblDate
+        ' 
+        lblDate.BorderStyle = BorderStyle.FixedSingle
+        lblDate.Location = New Point(50, 57)
+        lblDate.Name = "lblDate"
+        lblDate.Size = New Size(53, 27)
+        lblDate.TabIndex = 4
+        lblDate.Text = "日付"
+        ' 
+        ' btnDisp
+        ' 
+        btnDisp.Location = New Point(271, 105)
+        btnDisp.Name = "btnDisp"
+        btnDisp.Size = New Size(50, 29)
+        btnDisp.TabIndex = 5
+        btnDisp.Text = "表示"
+        btnDisp.UseVisualStyleBackColor = True
+        ' 
+        ' btnOutput
+        ' 
+        btnOutput.Location = New Point(841, 594)
+        btnOutput.Name = "btnOutput"
+        btnOutput.Size = New Size(94, 29)
+        btnOutput.TabIndex = 6
+        btnOutput.Text = "出力"
+        btnOutput.UseVisualStyleBackColor = True
         ' 
         ' MForm
         ' 
         ClientSize = New Size(1185, 635)
-        Controls.Add(lblText1)
+        Controls.Add(btnOutput)
+        Controls.Add(btnDisp)
+        Controls.Add(lblDate)
+        Controls.Add(DateTimePicker1)
+        Controls.Add(TextLabel1)
         Controls.Add(btnExit)
         Controls.Add(cmd1)
         KeyPreview = True
@@ -67,6 +115,10 @@ Partial Class MForm
 
     Friend WithEvents cmd1 As Button
     Friend WithEvents btnExit As Button
-    Friend WithEvents lblText1 As MyControls.LabeledTextBox
+    Friend WithEvents TextLabel1 As MyControls.LabeledTextBox
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents lblDate As Label
+    Friend WithEvents btnDisp As Button
+    Friend WithEvents btnOutput As Button
 
 End Class
