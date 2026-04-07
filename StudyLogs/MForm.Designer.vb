@@ -27,18 +27,19 @@ Partial Class MForm
         ' 
         ' cmd1
         ' 
-        cmd1.Location = New Point(516, 254)
+        cmd1.Location = New Point(1079, 594)
         cmd1.Name = "cmd1"
         cmd1.Size = New Size(94, 29)
         cmd1.TabIndex = 0
         cmd1.Text = "ボタンを押せ"
         cmd1.UseVisualStyleBackColor = True
         ' 
-        ' main
+        ' MForm
         ' 
         ClientSize = New Size(1185, 635)
         Controls.Add(cmd1)
-        Name = "main"
+        Name = "MForm"
+        Text = "資格学習記録"
         ResumeLayout(False)
 
     End Sub

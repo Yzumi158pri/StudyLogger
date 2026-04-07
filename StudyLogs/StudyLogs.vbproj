@@ -19,6 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Controls\Controls.vbproj" />
+    <ProjectReference Include="..\Outputs\Outputs.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="MForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="My Project\Application.Designer.vb">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
