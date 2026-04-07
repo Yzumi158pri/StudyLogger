@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Text
+Imports MyLib.MessageUtil
 
 Public Class LogUtil
     Public Sub New()
@@ -34,6 +35,11 @@ Public Class LogUtil
             ' ログ書き込み自体に失敗した場合はデバッグ出力のみ
             Debug.WriteLine($"ログ書き込み失敗: {ex.Message}")
         End Try
+    End Sub
+
+    Public Shared Sub ShowExeption(ex As Exception)
+        CtShowErrorDialog("エラーが発生しました: " & vbCrLf & ex.Message)
+        WriteLog("エラーが発生しました: " & ex.Message)
     End Sub
 
 End Class

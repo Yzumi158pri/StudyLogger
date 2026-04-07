@@ -29,6 +29,7 @@ Partial Class MForm
         lblDate = New Label()
         btnDisp = New Button()
         btnOutput = New Button()
+        btnSettings = New Button()
         SuspendLayout()
         ' 
         ' cmd1
@@ -96,9 +97,19 @@ Partial Class MForm
         btnOutput.Text = "出力"
         btnOutput.UseVisualStyleBackColor = True
         ' 
+        ' btnSettings
+        ' 
+        btnSettings.Location = New Point(26, 594)
+        btnSettings.Name = "btnSettings"
+        btnSettings.Size = New Size(94, 29)
+        btnSettings.TabIndex = 7
+        btnSettings.Text = "設定"
+        btnSettings.UseVisualStyleBackColor = True
+        ' 
         ' MForm
         ' 
         ClientSize = New Size(1185, 635)
+        Controls.Add(btnSettings)
         Controls.Add(btnOutput)
         Controls.Add(btnDisp)
         Controls.Add(lblDate)
@@ -120,5 +131,6 @@ Partial Class MForm
     Friend WithEvents lblDate As Label
     Friend WithEvents btnDisp As Button
     Friend WithEvents btnOutput As Button
+    Friend WithEvents btnSettings As Button
 
 End Class

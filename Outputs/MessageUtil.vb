@@ -33,4 +33,11 @@ Public Class MessageUtil
         Return MessageBox.Show(message, CheckTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
     End Function
 
+    Public Shared Sub CtShowErrorDialog(ByVal message As String)
+        System.Windows.Forms.MessageBox.Show(message, AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error)
+    End Sub
+
+    Public Shared Sub CtShowChkErrDialog(message As String)
+        System.Windows.Forms.MessageBox.Show(message, AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    End Sub
 End Class

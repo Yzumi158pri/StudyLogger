@@ -1,9 +1,7 @@
 ﻿Imports System
 Imports System.Windows.Forms
 Imports DocumentFormat.OpenXml.Office2013.PowerPoint.Roaming
-Imports MyLib.MessageUtil
-Imports MyLib.OutputUtil
-
+Imports MyLib
 
 Public Class MForm
 
@@ -15,7 +13,8 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        CtShowDialog("Hello, World.")
+        MessageUtil.CtShowDialog("Hello, World.")
+        LogUtil.WriteLog("opened : " & Me.Name)
     End Sub
 
     ''' <summary>
@@ -24,7 +23,7 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub cmd1_click(sender As Object, e As EventArgs) Handles cmd1.Click
-        CtShowDialog("Button Clicked.")
+        MessageUtil.CtShowDialog("Button Clicked.")
     End Sub
 
     ''' <summary>
@@ -33,12 +32,21 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub btnDisp_Click(sender As Object, e As EventArgs) Handles btnDisp.Click
-        CtShowDialog(TextLabel1.TextBoxText)
+        MessageUtil.CtShowDialog(TextLabel1.TextBoxText)
     End Sub
 
-
+    ''' <summary>
+    ''' 出力ボタンのクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub btnOutput_click(sender As Object, e As EventArgs) Handles btnOutput.Click
-        outputText(TextLabel1.TextBoxText)
+        OutputUtil.outputText(TextLabel1.TextBoxText, My.Settings.OutputPath)
+    End Sub
+
+    Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
+        Dim settingsForm As New SettingsForm()
+        settingsForm.ShowDialog()
     End Sub
 
     ''' <summary>
@@ -66,8 +74,9 @@ Public Class MForm
     End Sub
 
     Private Sub main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If CtConfirm("終了してよろしいですか？") = DialogResult.Yes Then
-            CtShowDialog("Goodbye, World.")
+        If MessageUtil.CtConfirm("終了してよろしいですか？") = DialogResult.Yes Then
+            MessageUtil.CtShowDialog("Goodbye, World.")
+            LogUtil.WriteLog("closed : " & Me.Name)
         Else
             e.Cancel = True
         End If
