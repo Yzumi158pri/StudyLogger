@@ -22,8 +22,40 @@ Partial Class LabeledTextBox
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container()
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        TextBox1 = New System.Windows.Forms.TextBox()
+        Label1 = New System.Windows.Forms.Label()
+        SuspendLayout()
+        ' 
+        ' TextBox1
+        ' 
+        TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        TextBox1.Location = New System.Drawing.Point(94, 0)
+        TextBox1.Name = "TextBox1"
+        TextBox1.Size = New System.Drawing.Size(125, 27)
+        TextBox1.TabIndex = 1
+        ' 
+        ' Label1
+        ' 
+        Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Label1.Location = New System.Drawing.Point(0, 0)
+        Label1.Name = "Label1"
+        Label1.Size = New System.Drawing.Size(94, 27)
+        Label1.TabIndex = 2
+        Label1.Text = "Label1"
+        Label1.TextAlign = Drawing.ContentAlignment.MiddleLeft
+        ' 
+        ' LabeledTextBox
+        ' 
+        AutoScaleDimensions = New System.Drawing.SizeF(8.0F, 20.0F)
+        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Controls.Add(Label1)
+        Controls.Add(TextBox1)
+        Name = "LabeledTextBox"
+        Size = New System.Drawing.Size(219, 27)
+        ResumeLayout(False)
+        PerformLayout()
     End Sub
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
 
 End Class
