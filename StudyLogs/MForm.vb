@@ -1,7 +1,10 @@
 ﻿Imports System
 Imports System.Windows.Forms
 Imports DocumentFormat.OpenXml.Office2013.PowerPoint.Roaming
+Imports DocumentFormat.OpenXml.Vml
 Imports MyLib
+Imports StudyLogs.My
+Imports MyModules
 
 Public Class MForm
 
@@ -15,6 +18,9 @@ Public Class MForm
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MessageUtil.CtShowDialog("Hello, World.")
         LogUtil.WriteLog("opened : " & Me.Name)
+
+        'フォーム全体にフォーカスイベントを設定
+        SetFocusColorEvent(Me)
     End Sub
 
     ''' <summary>
@@ -32,7 +38,7 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub btnDisp_Click(sender As Object, e As EventArgs) Handles btnDisp.Click
-        MessageUtil.CtShowDialog(TextLabel1.TextBoxText)
+        MessageUtil.CtShowDialog(TextLabel1.txtText)
     End Sub
 
     ''' <summary>
@@ -41,7 +47,26 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub btnOutput_click(sender As Object, e As EventArgs) Handles btnOutput.Click
-        OutputUtil.outputText(TextLabel1.TextBoxText, My.Settings.OutputPath)
+
+        '出力先
+        Dim outPath As String = My.Settings.OutputPath
+
+        '手動出力モードの場合
+        If My.Settings.AutoOutput = False Then
+
+            '出力先を設定
+            Using fbd As New FolderBrowserDialog()
+                fbd.Description = "出力先のフォルダを選択してください。"
+                '現在のパスを初期値に設定
+                fbd.SelectedPath = outPath
+                If fbd.ShowDialog() = DialogResult.OK Then
+                    outPath = fbd.SelectedPath
+                End If
+            End Using
+        End If
+
+        '出力処理
+        OutputUtil.outputText(TextLabel1.txtText, outPath)
     End Sub
 
     Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
@@ -69,10 +94,19 @@ Public Class MForm
             Case Keys.Escape
                 Me.Close()
             Case Keys.Enter
-                Me.SelectNextControl(Me.ActiveControl, True, True, True, True)
+                ' Enterキーが押されたら、Tabキーを送信して次のコントロールにフォーカスを移す
+                SendKeys.SendWait("{TAB}")
+
+                ' 元のEnterキーの動作を無効化（これをしないとEnterも入力されてしまう）
+                e.SuppressKeyPress = True
         End Select
     End Sub
 
+    ''' <summary>
+    ''' フォームクローズイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         If MessageUtil.CtConfirm("終了してよろしいですか？") = DialogResult.Yes Then
             MessageUtil.CtShowDialog("Goodbye, World.")
@@ -80,18 +114,6 @@ Public Class MForm
         Else
             e.Cancel = True
         End If
-    End Sub
-
-    Private Sub DateTimePicker1_ValueChanged(sender As Object, e As EventArgs) Handles DateTimePicker1.ValueChanged
-
-    End Sub
-
-    Private Sub lblText1_Load(sender As Object, e As EventArgs) Handles TextLabel1.Load
-
-    End Sub
-
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnOutput.Click
-
     End Sub
 
 

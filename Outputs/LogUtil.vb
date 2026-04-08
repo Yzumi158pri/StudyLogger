@@ -10,6 +10,10 @@ Public Class LogUtil
     ' ログを保存するフォルダパス（例：実行ファイルと同じ場所のLogフォルダ）
     Private Shared ReadOnly LogDirPath As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Log")
 
+    ''' <summary>
+    ''' ログ出力
+    ''' </summary>
+    ''' <param name="message"></param>
     Public Shared Sub WriteLog(message As String)
         Try
             ' 1. フォルダがなければ作成
@@ -37,6 +41,10 @@ Public Class LogUtil
         End Try
     End Sub
 
+    ''' <summary>
+    ''' エラー表示とログ出力
+    ''' </summary>
+    ''' <param name="ex"></param>
     Public Shared Sub ShowExeption(ex As Exception)
         CtShowErrorDialog("エラーが発生しました: " & vbCrLf & ex.Message)
         WriteLog("エラーが発生しました: " & ex.Message)

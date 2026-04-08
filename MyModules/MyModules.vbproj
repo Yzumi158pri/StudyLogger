@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <RootNamespace>MyModules</RootNamespace>
+	  <TargetFramework>net10.0-windows</TargetFramework>
+	  <OutputType>Library</OutputType>
+	  <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+</Project>

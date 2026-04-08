@@ -5,7 +5,11 @@ Imports MyLib.LogUtil
 
 Public Class OutputUtil
 
-
+    ''' <summary>
+    ''' テキストを指定したパスに保存する
+    ''' </summary>
+    ''' <param name="text"></param>
+    ''' <param name="outputPath"></param>
     Public Shared Sub outputText(ByVal text As String, ByVal outputPath As String)
 
         Dim filename As String = "output_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt"

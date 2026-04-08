@@ -47,7 +47,7 @@ Partial Class LabeledTextBox
         ' LabeledTextBox
         ' 
         AutoScaleDimensions = New System.Drawing.SizeF(8.0F, 20.0F)
-        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Controls.Add(Label1)
         Controls.Add(TextBox1)
         Name = "LabeledTextBox"

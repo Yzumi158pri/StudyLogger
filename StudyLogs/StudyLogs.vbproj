@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Controls\MyControls.vbproj" />
+    <ProjectReference Include="..\MyModules\MyModules.vbproj" />
     <ProjectReference Include="..\Outputs\MyLib.vbproj" />
   </ItemGroup>
 

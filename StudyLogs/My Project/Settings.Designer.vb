@@ -65,6 +65,18 @@ Namespace My
                 Me("OutputPath") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property AutoOutput() As Boolean
+            Get
+                Return CType(Me("AutoOutput"),Boolean)
+            End Get
+            Set
+                Me("AutoOutput") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
