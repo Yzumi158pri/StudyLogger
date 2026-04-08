@@ -5,9 +5,12 @@ Imports MyLib.LogUtil
 
 Public Class OutputUtil
 
-    Private Shared ReadOnly outputPath As String = "C:\Project\outputPath"
-
-    Public Shared Sub outputText(ByVal text As String)
+    ''' <summary>
+    ''' テキストを指定したパスに保存する
+    ''' </summary>
+    ''' <param name="text"></param>
+    ''' <param name="outputPath"></param>
+    Public Shared Sub outputText(ByVal text As String, ByVal outputPath As String)
 
         Dim filename As String = "output_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".txt"
         Dim filePath As String = Path.Combine(outputPath, filename)
@@ -20,8 +23,7 @@ Public Class OutputUtil
             File.WriteAllText(filePath, text, System.Text.Encoding.UTF8)
 
         Catch ex As Exception
-            MessageBox.Show("エラーが発生しました: " & vbCrLf & ex.Message)
-            WriteLog("エラーが発生しました: " & ex.Message)
+            ShowExeption(ex)
         Finally
             MessageBox.Show("保存しました")
             WriteLog("保存しました: " & filePath)

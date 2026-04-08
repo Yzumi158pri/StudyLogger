@@ -81,7 +81,7 @@ Public Class LabeledTextBox
     <Category("表示")>
     <Description("ラベルに表示する文字列を設定します")>
     <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
-    Public Property LabelText As String
+    Public Property lblText As String
         Get
             Return Label1.Text
         End Get
@@ -96,12 +96,27 @@ Public Class LabeledTextBox
     <Category("表示")>
     <Description("テキストボックスの内容を設定します")>
     <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
-    Public Property TextBoxText As String
+    Public Property txtText As String
         Get
             Return TextBox1.Text
         End Get
         Set(value As String)
             TextBox1.Text = value
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' テキストボックスの内容を設定・取得します
+    ''' </summary>
+    <Category("動作")>
+    <Description("テキストボックスの最大文字列を設定します")>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
+    Public Property txtMaxLength As Integer
+        Get
+            Return TextBox1.MaxLength
+        End Get
+        Set(value As Integer)
+            TextBox1.MaxLength = value
         End Set
     End Property
 

@@ -25,15 +25,18 @@ Partial Class MForm
         cmd1 = New Button()
         btnExit = New Button()
         TextLabel1 = New MyControls.LabeledTextBox()
-        DateTimePicker1 = New DateTimePicker()
         lblDate = New Label()
         btnDisp = New Button()
         btnOutput = New Button()
+        btnSettings = New Button()
+        Panel1 = New Panel()
+        Dateymd1 = New MyControls.DateYMD()
+        Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' cmd1
         ' 
-        cmd1.Location = New Point(962, 594)
+        cmd1.Location = New Point(967, 17)
         cmd1.Name = "cmd1"
         cmd1.Size = New Size(94, 29)
         cmd1.TabIndex = 3
@@ -42,7 +45,7 @@ Partial Class MForm
         ' 
         ' btnExit
         ' 
-        btnExit.Location = New Point(1079, 594)
+        btnExit.Location = New Point(1067, 17)
         btnExit.Name = "btnExit"
         btnExit.Size = New Size(94, 29)
         btnExit.TabIndex = 4
@@ -52,22 +55,17 @@ Partial Class MForm
         ' TextLabel1
         ' 
         TextLabel1.LabelSize = New Size(53, 27)
-        TextLabel1.LabelText = "入力"
         TextLabel1.LabelWidth = 53
+        TextLabel1.lblText = "入力"
         TextLabel1.Location = New Point(50, 105)
+        TextLabel1.Margin = New Padding(45, 18, 45, 18)
         TextLabel1.Name = "TextLabel1"
-        TextLabel1.Size = New Size(345, 29)
+        TextLabel1.Size = New Size(213, 27)
         TextLabel1.TabIndex = 1
         TextLabel1.TextBoxSize = New Size(160, 27)
-        TextLabel1.TextBoxText = ""
         TextLabel1.TextBoxWidth = 160
-        ' 
-        ' DateTimePicker1
-        ' 
-        DateTimePicker1.Location = New Point(102, 57)
-        DateTimePicker1.Name = "DateTimePicker1"
-        DateTimePicker1.Size = New Size(159, 27)
-        DateTimePicker1.TabIndex = 0
+        TextLabel1.txtMaxLength = 32767
+        TextLabel1.txtText = ""
         ' 
         ' lblDate
         ' 
@@ -80,7 +78,7 @@ Partial Class MForm
         ' 
         ' btnDisp
         ' 
-        btnDisp.Location = New Point(271, 105)
+        btnDisp.Location = New Point(263, 104)
         btnDisp.Name = "btnDisp"
         btnDisp.Size = New Size(50, 29)
         btnDisp.TabIndex = 5
@@ -89,26 +87,55 @@ Partial Class MForm
         ' 
         ' btnOutput
         ' 
-        btnOutput.Location = New Point(841, 594)
+        btnOutput.Location = New Point(867, 17)
         btnOutput.Name = "btnOutput"
         btnOutput.Size = New Size(94, 29)
         btnOutput.TabIndex = 6
         btnOutput.Text = "出力"
         btnOutput.UseVisualStyleBackColor = True
         ' 
+        ' btnSettings
+        ' 
+        btnSettings.Location = New Point(12, 17)
+        btnSettings.Name = "btnSettings"
+        btnSettings.Size = New Size(94, 29)
+        btnSettings.TabIndex = 7
+        btnSettings.Text = "設定"
+        btnSettings.UseVisualStyleBackColor = True
+        ' 
+        ' Panel1
+        ' 
+        Panel1.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        Panel1.Controls.Add(btnOutput)
+        Panel1.Controls.Add(btnSettings)
+        Panel1.Controls.Add(cmd1)
+        Panel1.Controls.Add(btnExit)
+        Panel1.Location = New Point(0, 565)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(1183, 67)
+        Panel1.TabIndex = 8
+        ' 
+        ' Dateymd1
+        ' 
+        Dateymd1.Location = New Point(103, 57)
+        Dateymd1.Name = "Dateymd1"
+        Dateymd1.Size = New Size(188, 27)
+        Dateymd1.TabIndex = 9
+        ' 
         ' MForm
         ' 
+        AutoScaleMode = AutoScaleMode.Inherit
         ClientSize = New Size(1185, 635)
-        Controls.Add(btnOutput)
+        Controls.Add(Dateymd1)
         Controls.Add(btnDisp)
         Controls.Add(lblDate)
-        Controls.Add(DateTimePicker1)
         Controls.Add(TextLabel1)
-        Controls.Add(btnExit)
-        Controls.Add(cmd1)
+        Controls.Add(Panel1)
         KeyPreview = True
+        MinimumSize = New Size(1203, 682)
         Name = "MForm"
         Text = "資格学習記録"
+        Panel1.ResumeLayout(False)
         ResumeLayout(False)
 
     End Sub
@@ -116,9 +143,11 @@ Partial Class MForm
     Friend WithEvents cmd1 As Button
     Friend WithEvents btnExit As Button
     Friend WithEvents TextLabel1 As MyControls.LabeledTextBox
-    Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents lblDate As Label
     Friend WithEvents btnDisp As Button
     Friend WithEvents btnOutput As Button
+    Friend WithEvents btnSettings As Button
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Dateymd1 As MyControls.DateYMD
 
 End Class

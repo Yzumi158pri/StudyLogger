@@ -13,7 +13,7 @@ Public Class MessageUtil
     Private Shared ReadOnly CheckTitle As String = "確認"
 
     ''' <summary>
-    ''' メッセージを表示します
+    ''' メッセージを表示
     ''' </summary>
     ''' <param name="message">
     ''' 表示するメッセージ
@@ -24,7 +24,7 @@ Public Class MessageUtil
     End Sub
 
     ''' <summary>
-    ''' はい/いいえ の確認ダイアログを表示します
+    ''' はい/いいえ の確認ダイアログ
     ''' </summary>
     ''' <param name="message">
     ''' 表示するメッセージ
@@ -33,4 +33,19 @@ Public Class MessageUtil
         Return MessageBox.Show(message, CheckTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
     End Function
 
+    ''' <summary>
+    ''' エラーダイアログ
+    ''' </summary>
+    ''' <param name="message"></param>
+    Public Shared Sub CtShowErrorDialog(ByVal message As String)
+        System.Windows.Forms.MessageBox.Show(message, AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error)
+    End Sub
+
+    ''' <summary>
+    ''' チェックエラー・警告ダイアログ
+    ''' </summary>
+    ''' <param name="message"></param>
+    Public Shared Sub CtShowChkErrDialog(message As String)
+        System.Windows.Forms.MessageBox.Show(message, AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Warning)
+    End Sub
 End Class
