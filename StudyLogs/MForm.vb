@@ -38,6 +38,9 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub btnDisp_Click(sender As Object, e As EventArgs) Handles btnDisp.Click
+        If chkText() = False Then
+            Return
+        End If
         MessageUtil.CtShowDialog(TextLabel1.txtText)
     End Sub
 
@@ -47,6 +50,11 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub btnOutput_click(sender As Object, e As EventArgs) Handles btnOutput.Click
+
+        '入力チェック
+        If chkText() = False Then
+            Return
+        End If
 
         '出力先
         Dim outPath As String = My.Settings.OutputPath
@@ -61,12 +69,12 @@ Public Class MForm
                 fbd.SelectedPath = outPath
                 If fbd.ShowDialog() = DialogResult.OK Then
                     outPath = fbd.SelectedPath
+                    '出力処理
+                    OutputUtil.outputText(TextLabel1.txtText, outPath)
                 End If
             End Using
         End If
 
-        '出力処理
-        OutputUtil.outputText(TextLabel1.txtText, outPath)
     End Sub
 
     Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
@@ -117,6 +125,25 @@ Public Class MForm
     End Sub
 
 
+#End Region
+
+
+#Region "処理"
+
+    ''' <summary>
+    ''' テキストの入力チェック
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function chkText() As Boolean
+
+        If TextLabel1.txtText.Trim() = String.Empty Then
+            MessageUtil.CtShowChkErrDialog("値を入力してください")
+            TextLabel1.Focus()
+            Return False
+        Else
+            Return True
+        End If
+    End Function
 #End Region
 
 End Class
