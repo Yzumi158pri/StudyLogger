@@ -29,29 +29,32 @@ Partial Class LabeledTextBox
         ' TextBox1
         ' 
         TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        TextBox1.Location = New System.Drawing.Point(94, 0)
+        TextBox1.Location = New System.Drawing.Point(45, 0)
+        TextBox1.Margin = New System.Windows.Forms.Padding(45, 18, 45, 18)
         TextBox1.Name = "TextBox1"
-        TextBox1.Size = New System.Drawing.Size(125, 27)
+        TextBox1.Size = New System.Drawing.Size(100, 27)
         TextBox1.TabIndex = 1
         ' 
         ' Label1
         ' 
         Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Label1.Location = New System.Drawing.Point(0, 0)
+        Label1.Margin = New System.Windows.Forms.Padding(45, 0, 45, 0)
         Label1.Name = "Label1"
-        Label1.Size = New System.Drawing.Size(94, 27)
+        Label1.Size = New System.Drawing.Size(50, 27)
         Label1.TabIndex = 2
         Label1.Text = "Label1"
         Label1.TextAlign = Drawing.ContentAlignment.MiddleLeft
         ' 
         ' LabeledTextBox
         ' 
-        AutoScaleDimensions = New System.Drawing.SizeF(8.0F, 20.0F)
+        AutoScaleDimensions = New System.Drawing.SizeF(120F, 120F)
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Controls.Add(Label1)
         Controls.Add(TextBox1)
+        Margin = New System.Windows.Forms.Padding(45, 18, 45, 18)
         Name = "LabeledTextBox"
-        Size = New System.Drawing.Size(219, 27)
+        Size = New System.Drawing.Size(154, 33)
         ResumeLayout(False)
         PerformLayout()
     End Sub

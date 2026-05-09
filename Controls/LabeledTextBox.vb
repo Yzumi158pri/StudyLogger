@@ -71,6 +71,66 @@ Public Class LabeledTextBox
         End Set
     End Property
 
+    ''' <summary>
+    ''' テキストボックスの水平方向の配置のみを個別に設定・取得したい場合
+    ''' </summary>
+    <Category("デザイン")>
+    <Description("テキストボックスの文字の水平方向の配置を指定します")>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
+    Public Property TextBoxAlign As System.Windows.Forms.HorizontalAlignment
+        Get
+            Return TextBox1.TextAlign
+        End Get
+        Set(value As System.Windows.Forms.HorizontalAlignment)
+            TextBox1.TextAlign = value
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' ラベルの水平方向の配置のみを個別に設定・取得したい場合
+    ''' </summary>
+    <Category("デザイン")>
+    <Description("ラベルの文字の水平方向の配置を指定します")>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
+    Public Property LabelAlign As ContentAlignment
+        Get
+            Return Label1.TextAlign
+        End Get
+        Set(value As ContentAlignment)
+            Label1.Width = value
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' テキストボックスの改行の可否を個別に設定・取得したい場合
+    ''' </summary>
+    <Category("カスタム")>
+    <Description("テキストボックスの改行の可否を指定します")>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
+    Public Property TextMultiline As Boolean
+        Get
+            Return TextBox1.Multiline
+        End Get
+        Set(value As Boolean)
+            TextBox1.Multiline = value
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' テキストボックスの活性状態を個別に設定・取得したい場合
+    ''' </summary>
+    <Category("カスタム")>
+    <Description("テキストボックスの活性状態を指定します")>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
+    Public Property TextEnable As Boolean
+        Get
+            Return TextBox1.Enabled
+        End Get
+        Set(value As Boolean)
+            TextBox1.Enabled = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "イベント"
