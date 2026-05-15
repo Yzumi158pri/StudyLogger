@@ -33,7 +33,7 @@ Partial Class MForm
         lblTargetDate = New Label()
         HeaderLine = New Label()
         txtStudyContent = New MyControls.LabeledTextBox()
-        Dateymd1 = New MyControls.DateYMD()
+        StudyDate = New MyControls.DateYMD()
         Label1 = New Label()
         lblStudyDate = New Label()
         numStudyTime = New NumericUpDown()
@@ -171,12 +171,12 @@ Partial Class MForm
         txtStudyContent.txtMaxLength = 32767
         txtStudyContent.txtText = ""
         ' 
-        ' Dateymd1
+        ' StudyDate
         ' 
-        Dateymd1.Location = New Point(119, 141)
-        Dateymd1.Name = "Dateymd1"
-        Dateymd1.Size = New Size(201, 35)
-        Dateymd1.TabIndex = 13
+        StudyDate.Location = New Point(119, 141)
+        StudyDate.Name = "StudyDate"
+        StudyDate.Size = New Size(201, 35)
+        StudyDate.TabIndex = 13
         ' 
         ' Label1
         ' 
@@ -290,7 +290,7 @@ Partial Class MForm
         Controls.Add(lblSumStudyTime)
         Controls.Add(lblStudyDate)
         Controls.Add(Label1)
-        Controls.Add(Dateymd1)
+        Controls.Add(StudyDate)
         Controls.Add(btnDisp)
         Controls.Add(HeaderLine)
         Controls.Add(txtExamName)
@@ -322,7 +322,7 @@ Partial Class MForm
     Friend WithEvents lblTargetDate As Label
     Friend WithEvents HeaderLine As Label
     Friend WithEvents txtStudyContent As MyControls.LabeledTextBox
-    Friend WithEvents Dateymd1 As MyControls.DateYMD
+    Friend WithEvents StudyDate As MyControls.DateYMD
     Friend WithEvents Label1 As Label
     Friend WithEvents lblStudyDate As Label
     Friend WithEvents numStudyTime As NumericUpDown
