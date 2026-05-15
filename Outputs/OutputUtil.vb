@@ -29,4 +29,11 @@ Public Class OutputUtil
             WriteLog("保存しました: " & filePath)
         End Try
     End Sub
+
+    ''' <summary>
+    ''' Excelに出力する
+    ''' </summary>
+    Public Shared Sub outputExcel()
+
+    End Sub
 End Class

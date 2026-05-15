@@ -43,9 +43,11 @@ Partial Class MForm
         txtRemarks = New MyControls.LabeledTextBox()
         lblSumStudyTime = New Label()
         SumStudyTime = New Label()
+        BodyPanel = New Panel()
         Panel1.SuspendLayout()
         CType(numStudyTime, ComponentModel.ISupportInitialize).BeginInit()
         CType(numProgress, ComponentModel.ISupportInitialize).BeginInit()
+        BodyPanel.SuspendLayout()
         SuspendLayout()
         ' 
         ' cmd1
@@ -69,13 +71,13 @@ Partial Class MForm
         ' txtExamName
         ' 
         txtExamName.LabelAlign = ContentAlignment.MiddleLeft
-        txtExamName.LabelSize = New Size(101, 27)
-        txtExamName.LabelWidth = 101
+        txtExamName.LabelSize = New Size(72, 27)
+        txtExamName.LabelWidth = 72
         txtExamName.lblText = "資格名"
-        txtExamName.Location = New Point(44, 27)
+        txtExamName.Location = New Point(45, 24)
         txtExamName.Margin = New Padding(45, 18, 45, 18)
         txtExamName.Name = "txtExamName"
-        txtExamName.Size = New Size(405, 31)
+        txtExamName.Size = New Size(372, 27)
         txtExamName.TabIndex = 1
         txtExamName.TextBoxAlign = HorizontalAlignment.Left
         txtExamName.TextBoxSize = New Size(300, 27)
@@ -87,7 +89,7 @@ Partial Class MForm
         ' 
         ' btnDisp
         ' 
-        btnDisp.Location = New Point(445, 26)
+        btnDisp.Location = New Point(1083, 56)
         btnDisp.Name = "btnDisp"
         btnDisp.Size = New Size(55, 29)
         btnDisp.TabIndex = 5
@@ -126,7 +128,7 @@ Partial Class MForm
         ' 
         ' TargetDate
         ' 
-        TargetDate.Location = New Point(672, 27)
+        TargetDate.Location = New Point(611, 28)
         TargetDate.Name = "TargetDate"
         TargetDate.Size = New Size(188, 27)
         TargetDate.TabIndex = 9
@@ -135,7 +137,7 @@ Partial Class MForm
         ' 
         lblTargetDate.BorderStyle = BorderStyle.FixedSingle
         lblTargetDate.ImageAlign = ContentAlignment.MiddleLeft
-        lblTargetDate.Location = New Point(570, 27)
+        lblTargetDate.Location = New Point(509, 28)
         lblTargetDate.Name = "lblTargetDate"
         lblTargetDate.Size = New Size(101, 27)
         lblTargetDate.TabIndex = 4
@@ -153,16 +155,16 @@ Partial Class MForm
         ' txtStudyContent
         ' 
         txtStudyContent.LabelAlign = ContentAlignment.MiddleLeft
-        txtStudyContent.LabelSize = New Size(72, 108)
+        txtStudyContent.LabelSize = New Size(72, 115)
         txtStudyContent.LabelWidth = 72
         txtStudyContent.lblText = "学習内容"
-        txtStudyContent.Location = New Point(44, 242)
+        txtStudyContent.Location = New Point(45, 186)
         txtStudyContent.Margin = New Padding(45, 18, 45, 18)
         txtStudyContent.Name = "txtStudyContent"
-        txtStudyContent.Size = New Size(598, 116)
+        txtStudyContent.Size = New Size(572, 115)
         txtStudyContent.TabIndex = 12
         txtStudyContent.TextBoxAlign = HorizontalAlignment.Left
-        txtStudyContent.TextBoxSize = New Size(500, 108)
+        txtStudyContent.TextBoxSize = New Size(500, 115)
         txtStudyContent.TextBoxWidth = 500
         txtStudyContent.TextEnable = True
         txtStudyContent.TextMultiline = True
@@ -196,7 +198,7 @@ Partial Class MForm
         ' 
         ' numStudyTime
         ' 
-        numStudyTime.Location = New Point(116, 197)
+        numStudyTime.Location = New Point(116, 95)
         numStudyTime.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
         numStudyTime.Name = "numStudyTime"
         numStudyTime.Size = New Size(108, 27)
@@ -205,7 +207,7 @@ Partial Class MForm
         ' lblStudyTime
         ' 
         lblStudyTime.BorderStyle = BorderStyle.FixedSingle
-        lblStudyTime.Location = New Point(44, 197)
+        lblStudyTime.Location = New Point(44, 96)
         lblStudyTime.Name = "lblStudyTime"
         lblStudyTime.Size = New Size(72, 27)
         lblStudyTime.TabIndex = 17
@@ -214,7 +216,7 @@ Partial Class MForm
         ' lblProgress
         ' 
         lblProgress.BorderStyle = BorderStyle.FixedSingle
-        lblProgress.Location = New Point(44, 386)
+        lblProgress.Location = New Point(44, 141)
         lblProgress.Name = "lblProgress"
         lblProgress.Size = New Size(72, 27)
         lblProgress.TabIndex = 19
@@ -222,7 +224,7 @@ Partial Class MForm
         ' 
         ' numProgress
         ' 
-        numProgress.Location = New Point(116, 386)
+        numProgress.Location = New Point(116, 141)
         numProgress.Name = "numProgress"
         numProgress.Size = New Size(108, 27)
         numProgress.TabIndex = 18
@@ -230,16 +232,16 @@ Partial Class MForm
         ' txtRemarks
         ' 
         txtRemarks.LabelAlign = ContentAlignment.MiddleLeft
-        txtRemarks.LabelSize = New Size(72, 108)
+        txtRemarks.LabelSize = New Size(72, 115)
         txtRemarks.LabelWidth = 72
         txtRemarks.lblText = "備考"
-        txtRemarks.Location = New Point(44, 431)
+        txtRemarks.Location = New Point(45, 334)
         txtRemarks.Margin = New Padding(45, 18, 45, 18)
         txtRemarks.Name = "txtRemarks"
-        txtRemarks.Size = New Size(598, 116)
+        txtRemarks.Size = New Size(572, 115)
         txtRemarks.TabIndex = 20
         txtRemarks.TextBoxAlign = HorizontalAlignment.Left
-        txtRemarks.TextBoxSize = New Size(500, 108)
+        txtRemarks.TextBoxSize = New Size(500, 115)
         txtRemarks.TextBoxWidth = 500
         txtRemarks.TextEnable = True
         txtRemarks.TextMultiline = True
@@ -249,7 +251,7 @@ Partial Class MForm
         ' lblSumStudyTime
         ' 
         lblSumStudyTime.BorderStyle = BorderStyle.FixedSingle
-        lblSumStudyTime.Location = New Point(859, 26)
+        lblSumStudyTime.Location = New Point(798, 27)
         lblSumStudyTime.Name = "lblSumStudyTime"
         lblSumStudyTime.Size = New Size(102, 27)
         lblSumStudyTime.TabIndex = 21
@@ -259,34 +261,43 @@ Partial Class MForm
         ' SumStudyTime
         ' 
         SumStudyTime.BorderStyle = BorderStyle.FixedSingle
-        SumStudyTime.Location = New Point(960, 26)
+        SumStudyTime.Location = New Point(899, 27)
         SumStudyTime.Name = "SumStudyTime"
         SumStudyTime.Size = New Size(125, 27)
         SumStudyTime.TabIndex = 22
         SumStudyTime.Text = "99時間99分"
         SumStudyTime.TextAlign = ContentAlignment.MiddleLeft
         ' 
+        ' BodyPanel
+        ' 
+        BodyPanel.Controls.Add(txtStudyContent)
+        BodyPanel.Controls.Add(lblProgress)
+        BodyPanel.Controls.Add(txtRemarks)
+        BodyPanel.Controls.Add(lblStudyTime)
+        BodyPanel.Controls.Add(numProgress)
+        BodyPanel.Controls.Add(numStudyTime)
+        BodyPanel.Location = New Point(0, 92)
+        BodyPanel.Name = "BodyPanel"
+        BodyPanel.Size = New Size(1183, 467)
+        BodyPanel.TabIndex = 23
+        ' 
         ' MForm
         ' 
-        AutoScaleMode = AutoScaleMode.Inherit
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1185, 635)
         Controls.Add(SumStudyTime)
         Controls.Add(lblSumStudyTime)
-        Controls.Add(txtRemarks)
-        Controls.Add(lblProgress)
-        Controls.Add(numProgress)
-        Controls.Add(lblStudyTime)
-        Controls.Add(numStudyTime)
         Controls.Add(lblStudyDate)
         Controls.Add(Label1)
         Controls.Add(Dateymd1)
-        Controls.Add(txtStudyContent)
         Controls.Add(btnDisp)
         Controls.Add(HeaderLine)
         Controls.Add(txtExamName)
         Controls.Add(TargetDate)
         Controls.Add(lblTargetDate)
         Controls.Add(Panel1)
+        Controls.Add(BodyPanel)
         KeyPreview = True
         MinimumSize = New Size(1203, 682)
         Name = "MForm"
@@ -294,6 +305,7 @@ Partial Class MForm
         Panel1.ResumeLayout(False)
         CType(numStudyTime, ComponentModel.ISupportInitialize).EndInit()
         CType(numProgress, ComponentModel.ISupportInitialize).EndInit()
+        BodyPanel.ResumeLayout(False)
         ResumeLayout(False)
         PerformLayout()
 
@@ -320,5 +332,6 @@ Partial Class MForm
     Friend WithEvents txtRemarks As MyControls.LabeledTextBox
     Friend WithEvents lblSumStudyTime As Label
     Friend WithEvents SumStudyTime As Label
+    Friend WithEvents BodyPanel As Panel
 
 End Class

@@ -91,7 +91,7 @@ Partial Class DateYMD
         ' DateYMD
         ' 
         AutoScaleDimensions = New System.Drawing.SizeF(8.0F, 20.0F)
-        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(txtDay)

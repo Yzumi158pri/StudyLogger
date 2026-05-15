@@ -17,7 +17,8 @@ Public Class LabeledTextBox
         End Get
         Set(value As Size)
             Label1.Size = value
-            TextBox1.Size = New Size(Me.Width - value.Width - TextBox1.Location.X, TextBox1.Height)
+            TextBox1.Location = New Point(Label1.Width, TextBox1.Location.Y)
+            ResizeCnt()
             Me.PerformLayout()
             Me.Invalidate()
         End Set
@@ -36,6 +37,7 @@ Public Class LabeledTextBox
         Set(value As Integer)
             Label1.Width = value
             TextBox1.Location = New Point(value, TextBox1.Location.Y)
+            ResizeCnt()
             Me.PerformLayout()
             Me.Invalidate()
         End Set
@@ -53,6 +55,9 @@ Public Class LabeledTextBox
         End Get
         Set(value As Size)
             TextBox1.Size = value
+            ResizeCnt()
+            Me.PerformLayout()
+            Me.Invalidate()
         End Set
     End Property
 
@@ -68,6 +73,9 @@ Public Class LabeledTextBox
         End Get
         Set(value As Integer)
             TextBox1.Width = value
+            ResizeCnt()
+            Me.PerformLayout()
+            Me.Invalidate()
         End Set
     End Property
 
@@ -97,7 +105,7 @@ Public Class LabeledTextBox
             Return Label1.TextAlign
         End Get
         Set(value As ContentAlignment)
-            Label1.Width = value
+            Label1.TextAlign = value
         End Set
     End Property
 
@@ -130,10 +138,6 @@ Public Class LabeledTextBox
             TextBox1.Enabled = value
         End Set
     End Property
-
-#End Region
-
-#Region "イベント"
 
     ''' <summary>
     ''' ラベルに表示する文字列を設定・取得します
@@ -180,6 +184,12 @@ Public Class LabeledTextBox
         End Set
     End Property
 
+#End Region
+
+#Region "イベント"
+
+
+
     ' 必要に応じて、テキスト変更イベントなどを外に流すこともできます
     Public Event TextChangedCustom As EventHandler
 
@@ -187,6 +197,34 @@ Public Class LabeledTextBox
         RaiseEvent TextChangedCustom(Me, e)
     End Sub
 
+    Protected Overrides Sub OnResize(e As EventArgs)
+        MyBase.OnResize(e)
+
+        ResizeCnt()
+
+    End Sub
 #End Region
+
+    Private Sub ResizeCnt()
+        ' テキストボックスの高さと垂直位置を調整
+        If TextBox1.Multiline Then
+            ' 複数行ならコントロール高さに合わせる
+            TextBox1.Height = Me.Height
+            TextBox1.Top = 0
+        Else
+            ' 単一行の場合はフォントに基づく推奨高さを使って中央寄せする
+            Dim preferred = TextBox1.PreferredHeight
+            TextBox1.Height = Math.Min(preferred, Me.Height)
+            TextBox1.Top = (Me.Height - TextBox1.Height) \ 2
+            ' コントロール全体の高さをテキストボックスに合わせる
+            Me.Height = TextBox1.Height + TextBox1.Top * 2
+        End If
+
+        ' ラベルの高さをコントロール全体に合わせる
+        Label1.Height = Me.Height
+        ' コントロール全体の幅をラベルとテキストボックスに合わせる
+        Me.Width = Label1.Width + TextBox1.Width
+    End Sub
+
 
 End Class

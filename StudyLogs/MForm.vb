@@ -21,6 +21,10 @@ Public Class MForm
 
         'フォーム全体にフォーカスイベントを設定
         SetFocusColorEvent(Me)
+
+        'フォームの初期化
+        initForm()
+
     End Sub
 
     ''' <summary>
@@ -41,7 +45,11 @@ Public Class MForm
         If chkText() = False Then
             Return
         End If
-        MessageUtil.CtShowDialog(txtExamName.txtText)
+
+        'ボディ部を表示
+        dispBody()
+
+        'MessageUtil.CtShowDialog(txtExamName.txtText)
     End Sub
 
     ''' <summary>
@@ -129,6 +137,32 @@ Public Class MForm
 
 
 #Region "処理"
+
+    ''' <summary>
+    ''' フォームの初期化
+    ''' </summary>
+    Private Sub initForm()
+
+        'ボディ部は非活性
+        BodyPanel.Enabled = False
+
+    End Sub
+
+    ''' <summary>
+    ''' ボディ部の表示
+    ''' </summary>
+    Private Sub dispBody()
+
+        SuspendLayout()
+
+        'TODO - ボディ部の内容を設定する処理を実装
+
+        'ボディ部を活性
+        BodyPanel.Enabled = True
+
+        ResumeLayout()
+
+    End Sub
 
     ''' <summary>
     ''' テキストの入力チェック

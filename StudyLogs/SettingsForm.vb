@@ -161,6 +161,24 @@ Public Class SettingsForm
         modFlg = True
     End Sub
 
+    ''' <summary>
+    ''' キーダウンイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub MainForm_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        ' Escキーが押されたか判定
+        Select Case e.KeyCode
+            Case Keys.Escape
+                Me.Close()
+            Case Keys.Enter
+                ' Enterキーが押されたら、Tabキーを送信して次のコントロールにフォーカスを移す
+                SendKeys.SendWait("{TAB}")
+
+                ' 元のEnterキーの動作を無効化（これをしないとEnterも入力されてしまう）
+                e.SuppressKeyPress = True
+        End Select
+    End Sub
 #End Region
 
 

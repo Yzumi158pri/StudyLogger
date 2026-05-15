@@ -35,6 +35,7 @@ Partial Class SettingsForm
         ' 
         ' txtlblOutputPath
         ' 
+        txtlblOutputPath.LabelAlign = ContentAlignment.MiddleLeft
         txtlblOutputPath.LabelSize = New Size(70, 27)
         txtlblOutputPath.LabelWidth = 70
         txtlblOutputPath.lblText = "出力先"
@@ -43,8 +44,11 @@ Partial Class SettingsForm
         txtlblOutputPath.Name = "txtlblOutputPath"
         txtlblOutputPath.Size = New Size(620, 27)
         txtlblOutputPath.TabIndex = 0
+        txtlblOutputPath.TextBoxAlign = HorizontalAlignment.Left
         txtlblOutputPath.TextBoxSize = New Size(550, 27)
         txtlblOutputPath.TextBoxWidth = 550
+        txtlblOutputPath.TextEnable = True
+        txtlblOutputPath.TextMultiline = False
         txtlblOutputPath.txtMaxLength = 32767
         txtlblOutputPath.txtText = ""
         ' 
@@ -77,9 +81,9 @@ Partial Class SettingsForm
         ' 
         ' btnRef
         ' 
-        btnRef.Location = New Point(645, 105)
+        btnRef.Location = New Point(659, 148)
         btnRef.Name = "btnRef"
-        btnRef.Size = New Size(51, 29)
+        btnRef.Size = New Size(94, 29)
         btnRef.TabIndex = 4
         btnRef.Text = "参照"
         btnRef.UseVisualStyleBackColor = True
@@ -119,7 +123,8 @@ Partial Class SettingsForm
         ' 
         ' SettingsForm
         ' 
-        AutoScaleMode = AutoScaleMode.Inherit
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 290)
         Controls.Add(radManualOutput)
         Controls.Add(radAutoOutput)
