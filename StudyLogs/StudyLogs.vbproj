@@ -6,6 +6,15 @@
     <StartupObject>StudyLogs.My.MyApplication</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>C:\Project\StudyLogs\exe\debug</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>C:\Project\StudyLogs\exe\release</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,9 +28,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Controls\MyControls.vbproj" />
+    <ProjectReference Include="..\MyControls\MyControls.vbproj" />
+    <ProjectReference Include="..\MyLib\MyLib.vbproj" />
     <ProjectReference Include="..\MyModules\MyModules.vbproj" />
-    <ProjectReference Include="..\Outputs\MyLib.vbproj" />
   </ItemGroup>
 
   <ItemGroup>

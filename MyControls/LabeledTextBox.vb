@@ -1,7 +1,21 @@
 ﻿Imports System.ComponentModel
 Imports System.Drawing
+Imports System.Windows.Forms
 
+''' <summary>
+''' ラベルとテキストボックスを組み合わせたカスタムコントロール
+''' 余裕があったらこちらを使用するようにしたい
+''' 現状はデザイナが崩れがちなため、使用しない
+''' </summary>
 Public Class LabeledTextBox
+
+
+#Region "変数"
+    ''' <summary>
+    ''' 必須入力かどうかを管理する変数
+    ''' </summary>
+    Private _mustInput As Boolean = False
+#End Region
 
 #Region "プロパティ"
 
@@ -140,6 +154,28 @@ Public Class LabeledTextBox
     End Property
 
     ''' <summary>
+    ''' 必須入力かどうかを個別に設定・取得したい場合
+    ''' </summary>
+    <Category("カスタム")>
+    <Description("必須入力かどうかを指定します")>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
+    Public Property MustInput As Boolean
+        Get
+            Return _mustInput
+        End Get
+        Set(value As Boolean)
+            _mustInput = value
+            If _mustInput Then
+                TextBox1.BackColor = Color.LightPink
+            Else
+                TextBox1.BackColor = SystemColors.Window
+            End If
+            Me.PerformLayout()
+            Me.Invalidate()
+        End Set
+    End Property
+
+    ''' <summary>
     ''' ラベルに表示する文字列を設定・取得します
     ''' </summary>
     <Category("表示")>
@@ -206,24 +242,37 @@ Public Class LabeledTextBox
 #End Region
 
     Private Sub ResizeCnt()
-        ' テキストボックスの高さと垂直位置を調整
-        If TextBox1.Multiline Then
-            ' 複数行ならコントロール高さに合わせる
+        ' 1. デザイナで配置・調整中のときは、勝手に親のサイズを変えないようにガードする
+        If Me.DesignMode Then
+            ' デザイナでは最低限の整列のみ
+            Label1.Height = Me.Height
             TextBox1.Height = Me.Height
-            TextBox1.Top = 0
-        Else
-            ' 単一行の場合はフォントに基づく推奨高さを使って中央寄せする
-            Dim preferred = TextBox1.PreferredHeight
-            TextBox1.Height = Math.Min(preferred, Me.Height)
-            TextBox1.Top = (Me.Height - TextBox1.Height) \ 2
-            ' コントロール全体の高さをテキストボックスに合わせる
-            Me.Height = TextBox1.Height + TextBox1.Top * 2
+            TextBox1.Left = Label1.Width
+            TextBox1.Width = Me.Width - Label1.Width
+            Exit Sub
         End If
 
-        ' ラベルの高さをコントロール全体に合わせる
-        Label1.Height = Me.Height
-        ' コントロール全体の幅をラベルとテキストボックスに合わせる
-        Me.Width = Label1.Width + TextBox1.Width
+        '' --- 以下、実行時のロジック ---
+
+        'If Not TextBox1.Multiline Then
+        '    ' 単一行の場合
+        '    Dim preferred = TextBox1.PreferredHeight
+        '    TextBox1.Height = Math.Min(preferred, Me.Height)
+        '    TextBox1.Top = (Me.Height - TextBox1.Height) \ 2
+        '    ' 親のサイズを子に合わせる（実行時のみ）
+        '    Me.Height = TextBox1.Height + (TextBox1.Top * 2)
+        'Else
+        '    ' 複数行の場合
+        '    TextBox1.Height = Me.Height
+        '    TextBox1.Top = 0
+        'End If
+
+        '' 最後に横幅とラベルを確定
+        'Label1.Top = 0
+        'Label1.Height = Me.Height
+        'TextBox1.Left = Label1.Width
+        '' 隙間が空かないようにテキストボックスの幅を調整
+        'TextBox1.Width = Me.Width - Label1.Width
     End Sub
 
 
