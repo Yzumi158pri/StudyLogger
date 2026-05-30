@@ -15,7 +15,25 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_E80F9176A2AC4FFEA3E29EAE4B6B8A30"
+        "MsmKey" = "8:_33EB3EF3C5114AA487E0A4DDE94C2352"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3AB34AA4DE1B459C883C5C53F20B545E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B8EE3EC58D5141F4ABEFBCFB8208CDE4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FD8F5EF3EB1C41C1821AF9701872167E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -116,6 +134,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3AB34AA4DE1B459C883C5C53F20B545E"
+            {
+            "SourcePath" = "8:..\\StudyLogs\\icon\\icon.ico"
+            "TargetName" = "8:icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_861151F70C714CFC88DDF0E9CA13B71C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -171,13 +209,13 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:SutdyLogger"
+        "ProductName" = "8:StudyLogger"
         "ProductCode" = "8:{8FB03DF3-4DBF-4F7D-9F1E-DBE9C9C2E476}"
-        "PackageCode" = "8:{52978EB4-EC4B-4B3B-A6DD-A17BB7056BD5}"
+        "PackageCode" = "8:{D9E2B452-293A-44C0-9A99-D78D344376DE}"
         "UpgradeCode" = "8:{C3A51B48-8AE4-4033-8ED5-D8B5C1C29E05}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
@@ -293,6 +331,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_5ACFC7854C7C49E99BC6B8A494C932B8"
+            {
+            "Name" = "8:StudyLogger"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_B8EE3EC58D5141F4ABEFBCFB8208CDE4"
+            "Folder" = "8:_0D913590F442462E9B8A18B8F018A99F"
+            "WorkingFolder" = "8:_861151F70C714CFC88DDF0E9CA13B71C"
+            "Icon" = "8:_3AB34AA4DE1B459C883C5C53F20B545E"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_BCA1AE3FABC1422C930D79A6BF055444"
+            {
+            "Name" = "8:StudyLogger"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_B8EE3EC58D5141F4ABEFBCFB8208CDE4"
+            "Folder" = "8:_212CFC64210C425095A79BB0A593B630"
+            "WorkingFolder" = "8:_861151F70C714CFC88DDF0E9CA13B71C"
+            "Icon" = "8:_3AB34AA4DE1B459C883C5C53F20B545E"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
@@ -692,9 +758,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B385197839B54C7DBC2D9295F4150982"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_33EB3EF3C5114AA487E0A4DDE94C2352"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\StudyLogs\\obj\\Debug\\net10.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_861151F70C714CFC88DDF0E9CA13B71C"
@@ -713,14 +779,42 @@
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{611203F2-7EE2-C522-41BC-C634254FE46B}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E80F9176A2AC4FFEA3E29EAE4B6B8A30"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B8EE3EC58D5141F4ABEFBCFB8208CDE4"
+            {
+            "SourcePath" = "8:..\\StudyLogs\\obj\\Debug\\net10.0-windows\\apphost.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_861151F70C714CFC88DDF0E9CA13B71C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:PublishItemsOutputGroup"
+            "OutputProjectGuid" = "8:{611203F2-7EE2-C522-41BC-C634254FE46B}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FD8F5EF3EB1C41C1821AF9701872167E"
             {
             "SourcePath" = "8:..\\StudyLogs\\obj\\Debug\\net10.0-windows\\StudyLogs.dll"
             "TargetName" = "8:"
