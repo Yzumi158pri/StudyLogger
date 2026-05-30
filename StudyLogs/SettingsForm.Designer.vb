@@ -165,6 +165,7 @@ Partial Class SettingsForm
         Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Margin = New Padding(2)
         Name = "SettingsForm"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "設定"
         Panel1.ResumeLayout(False)
         ResumeLayout(False)

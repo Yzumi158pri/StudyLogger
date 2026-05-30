@@ -389,6 +389,7 @@ Partial Class MForm
         KeyPreview = True
         Margin = New Padding(2)
         Name = "MForm"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "資格学習記録"
         Panel1.ResumeLayout(False)
         CType(numStudyTime, ComponentModel.ISupportInitialize).EndInit()

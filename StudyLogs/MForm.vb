@@ -165,7 +165,7 @@ Public Class MForm
             Return
         End If
 
-        If StudyDate.GetDateTime() <> DateTime.Now Then
+        If StudyDate.GetDate() <> DateTime.Now.ToString("yyyyMMdd") Then
             Dim msg As String = "学習日：" & StudyDate.GetDate() & vbCrLf _
                             & "今日の日付：" & DateTime.Now.ToString("yyyy/MM/dd") & vbCrLf _
                             & "学習日が今日の日付と異なります。記録してもよろしいですか？" & vbCrLf _
@@ -437,11 +437,13 @@ Public Class MForm
     ''' </summary>
     Private Sub resetBody()
 
+        StudyDate.SetToday()
         lbltxtTargetDate.txtText = String.Empty
         SumStudyTime.Text = String.Empty
+        tmpSumStudyTime = 0
         numStudyTime.Value = 0
         numProgress.Value = 0
-        Jukenbi.SetToday()
+        Jukenbi.initYMDDesign()
         cmbResult.SelectedIndex = -1
         txtStudyContent.txtText = String.Empty
         txtRemarks.txtText = String.Empty

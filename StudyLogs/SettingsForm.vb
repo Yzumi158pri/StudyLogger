@@ -172,7 +172,7 @@ Public Class SettingsForm
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
-    Private Sub txtlbl_TextChanged(sender As Object, e As EventArgs) Handles txtlblOutputPath.TextChanged, txtlblUserName.TextChanged
+    Private Sub txtlbl_TextChanged(sender As Object, e As EventArgs) Handles txtlblOutputPath.TextChangedCustom, txtlblUserName.TextChangedCustom
         '編集フラグON
         modFlg = True
     End Sub

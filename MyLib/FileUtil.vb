@@ -175,7 +175,11 @@ Public Class FileUtil
                 With item
                     workSheet.Cell(CellAddress.examName).Value = .examName
                     workSheet.Cell(CellAddress.targetDate).Value = .targetDate
-                    workSheet.Cell(CellAddress.jukenbi).Value = .jukenbi
+                    If .jukenbi <> "//" Then
+                        workSheet.Cell(CellAddress.jukenbi).Value = .jukenbi
+                    Else
+                        workSheet.Cell(CellAddress.jukenbi).Value = "未定"
+                    End If
                     workSheet.Cell(CellAddress.result).Value = .result
 
 
@@ -189,14 +193,14 @@ Public Class FileUtil
                             lastRow.Field(CellAddress.studyDate).Value = .studyDate
                             lastRow.Field(CellAddress.studyTime).Value = .studyTime
                             lastRow.Field(CellAddress.studyContent).Value = .studyContent
-                            lastRow.Field(CellAddress.progress).Value = .progress
+                            lastRow.Field(CellAddress.progress).Value = .progress / 100D
                             lastRow.Field(CellAddress.remarks).Value = .remarks
                         Else
                             Dim newRow As IXLTableRow = table.DataRange.LastRow().InsertRowsBelow(1).First()
                             newRow.Field(CellAddress.studyDate).Value = .studyDate
                             newRow.Field(CellAddress.studyTime).Value = .studyTime
                             newRow.Field(CellAddress.studyContent).Value = .studyContent
-                            newRow.Field(CellAddress.progress).Value = .progress
+                            newRow.Field(CellAddress.progress).Value = .progress / 100D
                             newRow.Field(CellAddress.remarks).Value = .remarks
                         End If
                     End If
