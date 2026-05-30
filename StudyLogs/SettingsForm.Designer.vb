@@ -22,6 +22,7 @@ Partial Class SettingsForm
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SettingsForm))
         txtlblOutputPath = New MyControls.LabeledTextBox()
         btnReset = New Button()
         btnExit = New Button()
@@ -161,6 +162,7 @@ Partial Class SettingsForm
         Controls.Add(btnRef)
         Controls.Add(txtlblOutputPath)
         Controls.Add(Panel1)
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Margin = New Padding(2)
         Name = "SettingsForm"
         Text = "設定"

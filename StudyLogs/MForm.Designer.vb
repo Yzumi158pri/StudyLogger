@@ -22,6 +22,7 @@ Partial Class MForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MForm))
         cmd1 = New Button()
         btnExit = New Button()
         txtExamName = New MyControls.LabeledTextBox()
@@ -384,6 +385,7 @@ Partial Class MForm
         Controls.Add(txtExamName)
         Controls.Add(Panel1)
         Controls.Add(BodyPanel)
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         KeyPreview = True
         Margin = New Padding(2)
         Name = "MForm"
