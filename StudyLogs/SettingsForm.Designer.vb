@@ -35,51 +35,59 @@ Partial Class SettingsForm
         ' 
         ' txtlblOutputPath
         ' 
-        txtlblOutputPath.LabelSize = New Size(70, 27)
+        txtlblOutputPath.LabelAlign = ContentAlignment.MiddleLeft
+        txtlblOutputPath.LabelSize = New Size(70, 23)
         txtlblOutputPath.LabelWidth = 70
         txtlblOutputPath.lblText = "出力先"
-        txtlblOutputPath.Location = New Point(25, 105)
-        txtlblOutputPath.Margin = New Padding(45, 18, 45, 18)
+        txtlblOutputPath.Location = New Point(18, 84)
+        txtlblOutputPath.Margin = New Padding(36, 14, 36, 14)
         txtlblOutputPath.Name = "txtlblOutputPath"
-        txtlblOutputPath.Size = New Size(620, 27)
+        txtlblOutputPath.Size = New Size(496, 23)
         txtlblOutputPath.TabIndex = 0
-        txtlblOutputPath.TextBoxSize = New Size(550, 27)
-        txtlblOutputPath.TextBoxWidth = 550
+        txtlblOutputPath.TextBoxAlign = HorizontalAlignment.Left
+        txtlblOutputPath.TextBoxSize = New Size(426, 23)
+        txtlblOutputPath.TextBoxWidth = 426
+        txtlblOutputPath.TextEnable = True
+        txtlblOutputPath.TextMultiline = False
         txtlblOutputPath.txtMaxLength = 32767
         txtlblOutputPath.txtText = ""
         ' 
         ' btnReset
         ' 
-        btnReset.Location = New Point(585, 8)
+        btnReset.Location = New Point(328, 6)
+        btnReset.Margin = New Padding(2, 2, 2, 2)
         btnReset.Name = "btnReset"
-        btnReset.Size = New Size(94, 29)
+        btnReset.Size = New Size(75, 23)
         btnReset.TabIndex = 1
         btnReset.Text = "再読込"
         btnReset.UseVisualStyleBackColor = True
         ' 
         ' btnExit
         ' 
-        btnExit.Location = New Point(694, 8)
+        btnExit.Location = New Point(417, 6)
+        btnExit.Margin = New Padding(2, 2, 2, 2)
         btnExit.Name = "btnExit"
-        btnExit.Size = New Size(94, 29)
+        btnExit.Size = New Size(75, 23)
         btnExit.TabIndex = 2
         btnExit.Text = "終了"
         btnExit.UseVisualStyleBackColor = True
         ' 
         ' btnUpd
         ' 
-        btnUpd.Location = New Point(12, 8)
+        btnUpd.Location = New Point(9, 6)
+        btnUpd.Margin = New Padding(2, 2, 2, 2)
         btnUpd.Name = "btnUpd"
-        btnUpd.Size = New Size(94, 29)
+        btnUpd.Size = New Size(75, 23)
         btnUpd.TabIndex = 3
         btnUpd.Text = "更新"
         btnUpd.UseVisualStyleBackColor = True
         ' 
         ' btnRef
         ' 
-        btnRef.Location = New Point(645, 105)
+        btnRef.Location = New Point(441, 118)
+        btnRef.Margin = New Padding(2, 2, 2, 2)
         btnRef.Name = "btnRef"
-        btnRef.Size = New Size(51, 29)
+        btnRef.Size = New Size(75, 23)
         btnRef.TabIndex = 4
         btnRef.Text = "参照"
         btnRef.UseVisualStyleBackColor = True
@@ -90,17 +98,19 @@ Partial Class SettingsForm
         Panel1.Controls.Add(btnUpd)
         Panel1.Controls.Add(btnExit)
         Panel1.Controls.Add(btnReset)
-        Panel1.Location = New Point(3, 247)
+        Panel1.Location = New Point(11, 198)
+        Panel1.Margin = New Padding(2, 2, 2, 2)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(800, 43)
+        Panel1.Size = New Size(505, 34)
         Panel1.TabIndex = 5
         ' 
         ' radAutoOutput
         ' 
         radAutoOutput.AutoSize = True
-        radAutoOutput.Location = New Point(25, 153)
+        radAutoOutput.Location = New Point(20, 122)
+        radAutoOutput.Margin = New Padding(2, 2, 2, 2)
         radAutoOutput.Name = "radAutoOutput"
-        radAutoOutput.Size = New Size(90, 24)
+        radAutoOutput.Size = New Size(73, 19)
         radAutoOutput.TabIndex = 6
         radAutoOutput.TabStop = True
         radAutoOutput.Text = "自動出力"
@@ -109,9 +119,10 @@ Partial Class SettingsForm
         ' radManualOutput
         ' 
         radManualOutput.AutoSize = True
-        radManualOutput.Location = New Point(121, 153)
+        radManualOutput.Location = New Point(97, 122)
+        radManualOutput.Margin = New Padding(2, 2, 2, 2)
         radManualOutput.Name = "radManualOutput"
-        radManualOutput.Size = New Size(90, 24)
+        radManualOutput.Size = New Size(73, 19)
         radManualOutput.TabIndex = 7
         radManualOutput.TabStop = True
         radManualOutput.Text = "手動出力"
@@ -119,14 +130,15 @@ Partial Class SettingsForm
         ' 
         ' SettingsForm
         ' 
-        AutoScaleMode = AutoScaleMode.Inherit
-        ClientSize = New Size(800, 290)
+        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleMode = AutoScaleMode.Dpi
+        ClientSize = New Size(527, 238)
         Controls.Add(radManualOutput)
         Controls.Add(radAutoOutput)
         Controls.Add(btnRef)
         Controls.Add(txtlblOutputPath)
         Controls.Add(Panel1)
-        MinimumSize = New Size(818, 337)
+        Margin = New Padding(2, 2, 2, 2)
         Name = "SettingsForm"
         Text = "設定"
         Panel1.ResumeLayout(False)

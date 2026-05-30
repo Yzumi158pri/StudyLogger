@@ -1,13 +1,55 @@
-﻿Imports System.Drawing
+﻿Imports System.ComponentModel
+Imports System.Drawing
 Imports System.Windows.Forms
 
 Public Class DateYMD
+
+
+#Region "変数"
+    ''' <summary>
+    ''' 必須入力かどうかを管理する変数
+    ''' </summary>
+    Private _mustInput As Boolean = False
+
     ' フォーカス時の色管理用
     Private _focusColor As Color = Color.LightYellow
     Private _defaultColor As Color = SystemColors.Window
 
     ' カレンダーを保持する変数（最初は空）
     Private WithEvents _popupCalendar As MonthCalendar
+
+#End Region
+
+
+
+#Region "プロパティ"
+    ''' <summary>
+    ''' 必須入力かどうかを個別に設定・取得したい場合
+    ''' </summary>
+    <Category("カスタム")>
+    <Description("必須入力かどうかを指定します")>
+    <DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)>
+    Public Property MustInput As Boolean
+        Get
+            Return _mustInput
+        End Get
+        Set(value As Boolean)
+            _mustInput = value
+            If _mustInput Then
+                txtYear.BackColor = Color.LightPink
+                txtMonth.BackColor = Color.LightPink
+                txtDay.BackColor = Color.LightPink
+            Else
+                txtYear.BackColor = SystemColors.Window
+                txtMonth.BackColor = SystemColors.Window
+                txtDay.BackColor = SystemColors.Window
+            End If
+            Me.PerformLayout()
+            Me.Invalidate()
+        End Set
+    End Property
+
+#End Region
 
     ' カスタムコントロール（DatePickerYMD.vb）内のコード
     Protected Overrides Sub OnLoad(e As EventArgs)
@@ -87,12 +129,12 @@ Public Class DateYMD
 
     Private Sub txtYMD_Validated(sender As Object, e As EventArgs) Handles txtYear.Validated, txtMonth.Validated, txtDay.Validated
 
-        If CType(sender, TextBox).Text <> "" Then
-            Select Case CType(sender, TextBox).MaxLength
+        If CType(sender, System.Windows.Forms.TextBox).Text <> "" Then
+            Select Case CType(sender, System.Windows.Forms.TextBox).MaxLength
                 Case 2
-                    CType(sender, TextBox).Text = String.Format("{0:00}", CInt(CType(sender, TextBox).Text))
+                    CType(sender, System.Windows.Forms.TextBox).Text = String.Format("{0:00}", CInt(CType(sender, System.Windows.Forms.TextBox).Text))
                 Case 4
-                    CType(sender, TextBox).Text = String.Format("{0:0000}", CInt(CType(sender, TextBox).Text))
+                    CType(sender, System.Windows.Forms.TextBox).Text = String.Format("{0:0000}", CInt(CType(sender, System.Windows.Forms.TextBox).Text))
             End Select
         End If
 
@@ -110,15 +152,57 @@ Public Class DateYMD
     ''' </summary>
     Public Sub SetToday()
         Dim today = DateTime.Today
-        txtYear.Text = today.Year.ToString()
+        txtYear.Text = today.Year.ToString("0000")
         txtMonth.Text = today.Month.ToString("00")
         txtDay.Text = today.Day.ToString("00")
     End Sub
 
+    ''' <summary>
+    ''' 年をセットする共通メソッド
+    ''' </summary>
+    Public Sub SetYear(year As Integer)
+        txtYear.Text = year.ToString("0000")
+    End Sub
+
+    ''' <summary>
+    ''' 月をセットする共通メソッド
+    ''' </summary>
+    Public Sub SetMonth(month As Integer)
+        txtMonth.Text = month.ToString("00")
+    End Sub
+
+    ''' <summary>
+    ''' 日をセットする共通メソッド
+    ''' </summary>
+    Public Sub SetDay(day As Integer)
+        txtDay.Text = day.ToString("00")
+    End Sub
+
+    ''' <summary>
+    ''' テキストボックスを空にする共通メソッド
+    ''' </summary>
     Private Sub initYMDDesign()
         txtYear.Text = String.Empty
         txtMonth.Text = String.Empty
         txtDay.Text = String.Empty
     End Sub
+
+    ''' <summary>
+    ''' テキストボックスの内容を「yyyy/MM/dd」の形式で返す共通メソッド
+    ''' </summary>
+    ''' <param name="splitFlg">
+    ''' True:「yyyy/MM/dd」の形式で返す
+    ''' False:「yyyyMMdd」の形式で返す
+    ''' </param>
+    ''' <returns></returns>
+    Private Function GetDate(splitFlg As Boolean) As String
+        Dim datesStr As String
+        If splitFlg Then
+            datesStr = txtYear.Text + "/" + txtMonth.Text + "/" + txtDay.Text
+        Else
+            datesStr = txtYear.Text + txtMonth.Text + txtDay.Text
+        End If
+        Return datesStr
+    End Function
 
 End Class

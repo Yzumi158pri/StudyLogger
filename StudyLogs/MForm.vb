@@ -21,6 +21,10 @@ Public Class MForm
 
         'フォーム全体にフォーカスイベントを設定
         SetFocusColorEvent(Me)
+
+        'フォームの初期化
+        initForm()
+
     End Sub
 
     ''' <summary>
@@ -41,7 +45,11 @@ Public Class MForm
         If chkText() = False Then
             Return
         End If
-        MessageUtil.CtShowDialog(TextLabel1.txtText)
+
+        'ボディ部を表示
+        dispBody()
+
+        'MessageUtil.CtShowDialog(txtExamName.txtText)
     End Sub
 
     ''' <summary>
@@ -70,7 +78,7 @@ Public Class MForm
                 If fbd.ShowDialog() = DialogResult.OK Then
                     outPath = fbd.SelectedPath
                     '出力処理
-                    OutputUtil.outputText(TextLabel1.txtText, outPath)
+                    OutputUtil.outputText(txtExamName.txtText, outPath)
                 End If
             End Using
         End If
@@ -131,19 +139,49 @@ Public Class MForm
 #Region "処理"
 
     ''' <summary>
+    ''' フォームの初期化
+    ''' </summary>
+    Private Sub initForm()
+
+        'ボディ部は非活性
+        BodyPanel.Enabled = False
+
+    End Sub
+
+    ''' <summary>
+    ''' ボディ部の表示
+    ''' </summary>
+    Private Sub dispBody()
+
+        SuspendLayout()
+
+        'TODO - ボディ部の内容を設定する処理を実装
+
+        'ボディ部を活性
+        BodyPanel.Enabled = True
+
+        ResumeLayout()
+
+    End Sub
+
+    ''' <summary>
     ''' テキストの入力チェック
     ''' </summary>
     ''' <returns></returns>
     Private Function chkText() As Boolean
 
-        If TextLabel1.txtText.Trim() = String.Empty Then
+        If txtExamName.txtText.Trim() = String.Empty Then
             MessageUtil.CtShowChkErrDialog("値を入力してください")
-            TextLabel1.Focus()
+            txtExamName.Focus()
             Return False
         Else
             Return True
         End If
     End Function
+
+
+
+
 #End Region
 
 End Class
