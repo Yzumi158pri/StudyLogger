@@ -30,6 +30,7 @@ Partial Class SettingsForm
         Panel1 = New Panel()
         radAutoOutput = New RadioButton()
         radManualOutput = New RadioButton()
+        txtlblUserName = New MyControls.LabeledTextBox()
         Panel1.SuspendLayout()
         SuspendLayout()
         ' 
@@ -41,6 +42,7 @@ Partial Class SettingsForm
         txtlblOutputPath.lblText = "出力先"
         txtlblOutputPath.Location = New Point(18, 84)
         txtlblOutputPath.Margin = New Padding(36, 14, 36, 14)
+        txtlblOutputPath.MustInput = False
         txtlblOutputPath.Name = "txtlblOutputPath"
         txtlblOutputPath.Size = New Size(496, 23)
         txtlblOutputPath.TabIndex = 0
@@ -55,7 +57,7 @@ Partial Class SettingsForm
         ' btnReset
         ' 
         btnReset.Location = New Point(328, 6)
-        btnReset.Margin = New Padding(2, 2, 2, 2)
+        btnReset.Margin = New Padding(2)
         btnReset.Name = "btnReset"
         btnReset.Size = New Size(75, 23)
         btnReset.TabIndex = 1
@@ -65,7 +67,7 @@ Partial Class SettingsForm
         ' btnExit
         ' 
         btnExit.Location = New Point(417, 6)
-        btnExit.Margin = New Padding(2, 2, 2, 2)
+        btnExit.Margin = New Padding(2)
         btnExit.Name = "btnExit"
         btnExit.Size = New Size(75, 23)
         btnExit.TabIndex = 2
@@ -75,7 +77,7 @@ Partial Class SettingsForm
         ' btnUpd
         ' 
         btnUpd.Location = New Point(9, 6)
-        btnUpd.Margin = New Padding(2, 2, 2, 2)
+        btnUpd.Margin = New Padding(2)
         btnUpd.Name = "btnUpd"
         btnUpd.Size = New Size(75, 23)
         btnUpd.TabIndex = 3
@@ -85,7 +87,7 @@ Partial Class SettingsForm
         ' btnRef
         ' 
         btnRef.Location = New Point(441, 118)
-        btnRef.Margin = New Padding(2, 2, 2, 2)
+        btnRef.Margin = New Padding(2)
         btnRef.Name = "btnRef"
         btnRef.Size = New Size(75, 23)
         btnRef.TabIndex = 4
@@ -99,7 +101,7 @@ Partial Class SettingsForm
         Panel1.Controls.Add(btnExit)
         Panel1.Controls.Add(btnReset)
         Panel1.Location = New Point(11, 198)
-        Panel1.Margin = New Padding(2, 2, 2, 2)
+        Panel1.Margin = New Padding(2)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(505, 34)
         Panel1.TabIndex = 5
@@ -108,7 +110,7 @@ Partial Class SettingsForm
         ' 
         radAutoOutput.AutoSize = True
         radAutoOutput.Location = New Point(20, 122)
-        radAutoOutput.Margin = New Padding(2, 2, 2, 2)
+        radAutoOutput.Margin = New Padding(2)
         radAutoOutput.Name = "radAutoOutput"
         radAutoOutput.Size = New Size(73, 19)
         radAutoOutput.TabIndex = 6
@@ -120,7 +122,7 @@ Partial Class SettingsForm
         ' 
         radManualOutput.AutoSize = True
         radManualOutput.Location = New Point(97, 122)
-        radManualOutput.Margin = New Padding(2, 2, 2, 2)
+        radManualOutput.Margin = New Padding(2)
         radManualOutput.Name = "radManualOutput"
         radManualOutput.Size = New Size(73, 19)
         radManualOutput.TabIndex = 7
@@ -128,17 +130,38 @@ Partial Class SettingsForm
         radManualOutput.Text = "手動出力"
         radManualOutput.UseVisualStyleBackColor = True
         ' 
+        ' txtlblUserName
+        ' 
+        txtlblUserName.LabelAlign = ContentAlignment.MiddleLeft
+        txtlblUserName.LabelSize = New Size(70, 23)
+        txtlblUserName.LabelWidth = 70
+        txtlblUserName.lblText = "ユーザー名"
+        txtlblUserName.Location = New Point(18, 47)
+        txtlblUserName.Margin = New Padding(0)
+        txtlblUserName.MustInput = False
+        txtlblUserName.Name = "txtlblUserName"
+        txtlblUserName.Size = New Size(321, 23)
+        txtlblUserName.TabIndex = 8
+        txtlblUserName.TextBoxAlign = HorizontalAlignment.Left
+        txtlblUserName.TextBoxSize = New Size(251, 23)
+        txtlblUserName.TextBoxWidth = 251
+        txtlblUserName.TextEnable = True
+        txtlblUserName.TextMultiline = False
+        txtlblUserName.txtMaxLength = 20
+        txtlblUserName.txtText = ""
+        ' 
         ' SettingsForm
         ' 
-        AutoScaleDimensions = New SizeF(96F, 96F)
+        AutoScaleDimensions = New SizeF(96.0F, 96.0F)
         AutoScaleMode = AutoScaleMode.Dpi
         ClientSize = New Size(527, 238)
+        Controls.Add(txtlblUserName)
         Controls.Add(radManualOutput)
         Controls.Add(radAutoOutput)
         Controls.Add(btnRef)
         Controls.Add(txtlblOutputPath)
         Controls.Add(Panel1)
-        Margin = New Padding(2, 2, 2, 2)
+        Margin = New Padding(2)
         Name = "SettingsForm"
         Text = "設定"
         Panel1.ResumeLayout(False)
@@ -154,4 +177,5 @@ Partial Class SettingsForm
     Friend WithEvents Panel1 As Panel
     Friend WithEvents radAutoOutput As RadioButton
     Friend WithEvents radManualOutput As RadioButton
+    Friend WithEvents txtlblUserName As MyControls.LabeledTextBox
 End Class

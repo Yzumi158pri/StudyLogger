@@ -247,7 +247,7 @@ Public Class LabeledTextBox
             ' デザイナでは最低限の整列のみ
             Label1.Height = Me.Height
             TextBox1.Height = Me.Height
-            TextBox1.Left = Label1.Width
+            TextBox1.Left = Label1.Width - 1
             TextBox1.Width = Me.Width - Label1.Width
             Exit Sub
         End If

@@ -42,7 +42,7 @@ Public Class SettingsForm
         Dim msg As String = ""
         Dim control As Control = Nothing
         '入力チェック
-        If chkBody(txtlblOutputPath.txtText, msg, control) = False Then
+        If chkBody(msg, control) = False Then
             MessageUtil.CtShowChkErrDialog(msg)
             If control IsNot Nothing Then
                 control.Focus()
@@ -56,7 +56,7 @@ Public Class SettingsForm
 
         Try
             '更新処理
-            updateOutputPath()
+            updateSettings()
         Catch ex As Exception
             LogUtil.ShowExeption(ex)
         Finally
@@ -121,8 +121,12 @@ Public Class SettingsForm
     Private Sub btnExit_click(sender As Object, e As EventArgs) Handles btnExit.Click
 
         '値が変更されているなら確認
-        If outPathBefor <> txtlblOutputPath.txtText Then
-            If MessageUtil.CtConfirm("保存せずに終了してよろしいですか？") = DialogResult.No Then
+        If modFlg Then
+
+            Dim msg As String = "値が変更された可能性があります。" &
+                                vbCrLf & "保存せずに終了してよろしいですか？"
+
+            If MessageUtil.CtConfirm(msg) = DialogResult.No Then
                 Return
             End If
         End If
@@ -152,11 +156,11 @@ Public Class SettingsForm
     End Sub
 
     ''' <summary>
-    ''' 出力先テキスト変更イベント
+    ''' テキスト変更イベント
     ''' </summary>
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
-    Private Sub txtlblOutputPath_TextChanged(sender As Object, e As EventArgs) Handles txtlblOutputPath.TextChanged
+    Private Sub txtlbl_TextChanged(sender As Object, e As EventArgs) Handles txtlblOutputPath.TextChanged, txtlblUserName.TextChanged
         '編集フラグON
         modFlg = True
     End Sub
@@ -187,11 +191,12 @@ Public Class SettingsForm
     ''' <summary>
     ''' 出力先パスの更新処理
     ''' </summary>
-    Private Sub updateOutputPath()
+    Private Sub updateSettings()
 
         '更新
         My.Settings.OutputPath = txtlblOutputPath.txtText
         My.Settings.AutoOutput = radAutoOutput.Checked
+        My.Settings.UserName = txtlblUserName.txtText
         My.Settings.Save()
 
         '再読み込み
@@ -228,15 +233,23 @@ Public Class SettingsForm
     ''' <param name="strPath"></param>
     ''' <param name="msg"></param>
     ''' <returns></returns>
-    Private Function chkBody(ByVal strPath As String, ByRef msg As String, ByRef control As Control) As Boolean
+    Private Function chkBody(ByRef msg As String, ByRef control As Control) As Boolean
         '入力値の変更チェック
         If modFlg = False Then
             msg = "編集されていません。"
             Return False
         End If
 
+        '必須チェック
+        If txtlblOutputPath.txtText.Trim() = String.Empty Then
+            msg = "出力先は必須入力です。"
+            control = txtlblOutputPath
+            Return False
+        End If
+
+
         'ファイルパスチェック
-        If IsValidPath(strPath) = False Then
+        If IsValidPath(txtlblOutputPath.txtText) = False Then
             msg = "不正な出力先です。"
             control = txtlblOutputPath
             Return False

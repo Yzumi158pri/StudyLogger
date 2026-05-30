@@ -29,8 +29,6 @@ Partial Class MForm
         btnOutput = New Button()
         btnSettings = New Button()
         Panel1 = New Panel()
-        TargetDate = New MyControls.DateYMD()
-        lblTargetDate = New Label()
         HeaderLine = New Label()
         lblSumStudyTime = New Label()
         SumStudyTime = New Label()
@@ -44,6 +42,11 @@ Partial Class MForm
         lblProgress = New Label()
         txtStudyContent = New MyControls.LabeledTextBox()
         BodyPanel = New Panel()
+        lbltxtTargetDate = New MyControls.LabeledTextBox()
+        cmbResult = New ComboBox()
+        lblResult = New Label()
+        lblJukenbi = New Label()
+        Jukenbi = New MyControls.DateYMD()
         Panel1.SuspendLayout()
         CType(numStudyTime, ComponentModel.ISupportInitialize).BeginInit()
         CType(numProgress, ComponentModel.ISupportInitialize).BeginInit()
@@ -96,7 +99,7 @@ Partial Class MForm
         btnDisp.Margin = New Padding(2)
         btnDisp.Name = "btnDisp"
         btnDisp.Size = New Size(44, 23)
-        btnDisp.TabIndex = 5
+        btnDisp.TabIndex = 2
         btnDisp.Text = "表示"
         btnDisp.UseVisualStyleBackColor = True
         ' 
@@ -106,7 +109,7 @@ Partial Class MForm
         btnOutput.Margin = New Padding(2)
         btnOutput.Name = "btnOutput"
         btnOutput.Size = New Size(75, 23)
-        btnOutput.TabIndex = 6
+        btnOutput.TabIndex = 2
         btnOutput.Text = "出力"
         btnOutput.UseVisualStyleBackColor = True
         ' 
@@ -116,7 +119,7 @@ Partial Class MForm
         btnSettings.Margin = New Padding(2)
         btnSettings.Name = "btnSettings"
         btnSettings.Size = New Size(75, 23)
-        btnSettings.TabIndex = 7
+        btnSettings.TabIndex = 1
         btnSettings.Text = "設定"
         btnSettings.UseVisualStyleBackColor = True
         ' 
@@ -127,32 +130,11 @@ Partial Class MForm
         Panel1.Controls.Add(btnSettings)
         Panel1.Controls.Add(cmd1)
         Panel1.Controls.Add(btnExit)
-        Panel1.Location = New Point(0, 452)
+        Panel1.Location = New Point(0, 502)
         Panel1.Margin = New Padding(2)
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(538, 54)
-        Panel1.TabIndex = 8
-        ' 
-        ' TargetDate
-        ' 
-        TargetDate.Location = New Point(340, 40)
-        TargetDate.Margin = New Padding(2)
-        TargetDate.MustInput = True
-        TargetDate.Name = "TargetDate"
-        TargetDate.Size = New Size(150, 22)
-        TargetDate.TabIndex = 9
-        ' 
-        ' lblTargetDate
-        ' 
-        lblTargetDate.BorderStyle = BorderStyle.FixedSingle
-        lblTargetDate.ImageAlign = ContentAlignment.MiddleLeft
-        lblTargetDate.Location = New Point(258, 39)
-        lblTargetDate.Margin = New Padding(2, 0, 2, 0)
-        lblTargetDate.Name = "lblTargetDate"
-        lblTargetDate.Size = New Size(82, 23)
-        lblTargetDate.TabIndex = 4
-        lblTargetDate.Text = "取得目標時期"
-        lblTargetDate.TextAlign = ContentAlignment.MiddleCenter
+        Panel1.TabIndex = 17
         ' 
         ' HeaderLine
         ' 
@@ -166,63 +148,62 @@ Partial Class MForm
         ' lblSumStudyTime
         ' 
         lblSumStudyTime.BorderStyle = BorderStyle.FixedSingle
-        lblSumStudyTime.Location = New Point(258, 78)
+        lblSumStudyTime.Location = New Point(256, 31)
         lblSumStudyTime.Margin = New Padding(2, 0, 2, 0)
         lblSumStudyTime.Name = "lblSumStudyTime"
         lblSumStudyTime.Size = New Size(82, 23)
-        lblSumStudyTime.TabIndex = 21
+        lblSumStudyTime.TabIndex = 2
         lblSumStudyTime.Text = "合計学習時間"
         lblSumStudyTime.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' SumStudyTime
         ' 
         SumStudyTime.BorderStyle = BorderStyle.FixedSingle
-        SumStudyTime.Location = New Point(339, 78)
+        SumStudyTime.Location = New Point(337, 31)
         SumStudyTime.Margin = New Padding(2, 0, 2, 0)
         SumStudyTime.Name = "SumStudyTime"
         SumStudyTime.Size = New Size(100, 23)
-        SumStudyTime.TabIndex = 22
-        SumStudyTime.Text = "99時間99分"
+        SumStudyTime.TabIndex = 3
         SumStudyTime.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' numStudyTime
         ' 
         numStudyTime.BackColor = Color.LightPink
-        numStudyTime.Location = New Point(94, 77)
+        numStudyTime.Location = New Point(92, 120)
         numStudyTime.Margin = New Padding(2)
         numStudyTime.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
         numStudyTime.Name = "numStudyTime"
         numStudyTime.Size = New Size(86, 23)
-        numStudyTime.TabIndex = 16
+        numStudyTime.TabIndex = 8
         ' 
         ' numProgress
         ' 
-        numProgress.Location = New Point(94, 115)
+        numProgress.Location = New Point(92, 158)
         numProgress.Margin = New Padding(2)
         numProgress.Name = "numProgress"
         numProgress.Size = New Size(86, 23)
-        numProgress.TabIndex = 18
+        numProgress.TabIndex = 12
         ' 
         ' StudyDate
         ' 
         StudyDate.BackColor = SystemColors.Control
-        StudyDate.Location = New Point(94, 39)
+        StudyDate.Location = New Point(92, 82)
         StudyDate.Margin = New Padding(2)
         StudyDate.MustInput = True
         StudyDate.Name = "StudyDate"
         StudyDate.Size = New Size(139, 28)
-        StudyDate.TabIndex = 13
+        StudyDate.TabIndex = 5
         ' 
         ' lblStudyTime
         ' 
         lblStudyTime.BackColor = SystemColors.ControlLight
         lblStudyTime.BorderStyle = BorderStyle.FixedSingle
         lblStudyTime.ForeColor = SystemColors.ControlText
-        lblStudyTime.Location = New Point(36, 77)
+        lblStudyTime.Location = New Point(34, 120)
         lblStudyTime.Margin = New Padding(2, 0, 2, 0)
         lblStudyTime.Name = "lblStudyTime"
         lblStudyTime.Size = New Size(58, 23)
-        lblStudyTime.TabIndex = 17
+        lblStudyTime.TabIndex = 7
         lblStudyTime.Text = "学習時間"
         ' 
         ' txtRemarks
@@ -231,12 +212,12 @@ Partial Class MForm
         txtRemarks.LabelSize = New Size(72, 92)
         txtRemarks.LabelWidth = 72
         txtRemarks.lblText = "備考"
-        txtRemarks.Location = New Point(36, 262)
+        txtRemarks.Location = New Point(34, 307)
         txtRemarks.Margin = New Padding(0)
         txtRemarks.MustInput = False
         txtRemarks.Name = "txtRemarks"
         txtRemarks.Size = New Size(458, 92)
-        txtRemarks.TabIndex = 20
+        txtRemarks.TabIndex = 16
         txtRemarks.TextBoxAlign = HorizontalAlignment.Left
         txtRemarks.TextBoxSize = New Size(386, 92)
         txtRemarks.TextBoxWidth = 386
@@ -248,31 +229,32 @@ Partial Class MForm
         ' lblStudyDate
         ' 
         lblStudyDate.BorderStyle = BorderStyle.FixedSingle
-        lblStudyDate.Location = New Point(36, 39)
+        lblStudyDate.Location = New Point(34, 82)
         lblStudyDate.Margin = New Padding(2, 0, 2, 0)
         lblStudyDate.Name = "lblStudyDate"
         lblStudyDate.Size = New Size(58, 23)
-        lblStudyDate.TabIndex = 15
+        lblStudyDate.TabIndex = 4
         lblStudyDate.Text = "学習日"
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(36, 8)
+        Label1.Font = New Font("Yu Gothic UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, CByte(128))
+        Label1.Location = New Point(36, 24)
         Label1.Margin = New Padding(2, 0, 2, 0)
         Label1.Name = "Label1"
-        Label1.Size = New Size(88, 15)
-        Label1.TabIndex = 14
+        Label1.Size = New Size(155, 30)
+        Label1.TabIndex = 1
         Label1.Text = "学習内容を入力"
         ' 
         ' lblProgress
         ' 
         lblProgress.BorderStyle = BorderStyle.FixedSingle
-        lblProgress.Location = New Point(36, 115)
+        lblProgress.Location = New Point(34, 158)
         lblProgress.Margin = New Padding(2, 0, 2, 0)
         lblProgress.Name = "lblProgress"
         lblProgress.Size = New Size(58, 23)
-        lblProgress.TabIndex = 19
+        lblProgress.TabIndex = 11
         lblProgress.Text = "進捗率"
         ' 
         ' txtStudyContent
@@ -281,12 +263,12 @@ Partial Class MForm
         txtStudyContent.LabelSize = New Size(72, 92)
         txtStudyContent.LabelWidth = 72
         txtStudyContent.lblText = "学習内容"
-        txtStudyContent.Location = New Point(36, 154)
+        txtStudyContent.Location = New Point(34, 199)
         txtStudyContent.Margin = New Padding(0)
         txtStudyContent.MustInput = True
         txtStudyContent.Name = "txtStudyContent"
         txtStudyContent.Size = New Size(458, 92)
-        txtStudyContent.TabIndex = 12
+        txtStudyContent.TabIndex = 15
         txtStudyContent.TextBoxAlign = HorizontalAlignment.Left
         txtStudyContent.TextBoxSize = New Size(386, 92)
         txtStudyContent.TextBoxWidth = 386
@@ -297,12 +279,15 @@ Partial Class MForm
         ' 
         ' BodyPanel
         ' 
+        BodyPanel.Controls.Add(lbltxtTargetDate)
+        BodyPanel.Controls.Add(cmbResult)
+        BodyPanel.Controls.Add(lblResult)
+        BodyPanel.Controls.Add(lblJukenbi)
+        BodyPanel.Controls.Add(Jukenbi)
         BodyPanel.Controls.Add(SumStudyTime)
         BodyPanel.Controls.Add(txtStudyContent)
         BodyPanel.Controls.Add(lblSumStudyTime)
-        BodyPanel.Controls.Add(TargetDate)
         BodyPanel.Controls.Add(lblProgress)
-        BodyPanel.Controls.Add(lblTargetDate)
         BodyPanel.Controls.Add(Label1)
         BodyPanel.Controls.Add(lblStudyDate)
         BodyPanel.Controls.Add(txtRemarks)
@@ -313,14 +298,72 @@ Partial Class MForm
         BodyPanel.Location = New Point(0, 74)
         BodyPanel.Margin = New Padding(2)
         BodyPanel.Name = "BodyPanel"
-        BodyPanel.Size = New Size(538, 374)
-        BodyPanel.TabIndex = 23
+        BodyPanel.Size = New Size(538, 421)
+        BodyPanel.TabIndex = 3
+        ' 
+        ' lbltxtTargetDate
+        ' 
+        lbltxtTargetDate.LabelAlign = ContentAlignment.MiddleLeft
+        lbltxtTargetDate.LabelSize = New Size(82, 23)
+        lbltxtTargetDate.LabelWidth = 82
+        lbltxtTargetDate.lblText = "取得目標時期"
+        lbltxtTargetDate.Location = New Point(256, 82)
+        lbltxtTargetDate.Margin = New Padding(0)
+        lbltxtTargetDate.MustInput = True
+        lbltxtTargetDate.Name = "lbltxtTargetDate"
+        lbltxtTargetDate.Size = New Size(202, 23)
+        lbltxtTargetDate.TabIndex = 6
+        lbltxtTargetDate.TextBoxAlign = HorizontalAlignment.Left
+        lbltxtTargetDate.TextBoxSize = New Size(120, 23)
+        lbltxtTargetDate.TextBoxWidth = 120
+        lbltxtTargetDate.TextEnable = True
+        lbltxtTargetDate.TextMultiline = False
+        lbltxtTargetDate.txtMaxLength = 32767
+        lbltxtTargetDate.txtText = ""
+        ' 
+        ' cmbResult
+        ' 
+        cmbResult.FormattingEnabled = True
+        cmbResult.Items.AddRange(New Object() {"学習中", "合格", "不合格", "合否待ち"})
+        cmbResult.Location = New Point(337, 158)
+        cmbResult.Name = "cmbResult"
+        cmbResult.Size = New Size(121, 23)
+        cmbResult.TabIndex = 14
+        ' 
+        ' lblResult
+        ' 
+        lblResult.BorderStyle = BorderStyle.FixedSingle
+        lblResult.Location = New Point(256, 158)
+        lblResult.Name = "lblResult"
+        lblResult.Size = New Size(82, 23)
+        lblResult.TabIndex = 13
+        lblResult.Text = "受験結果"
+        lblResult.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' lblJukenbi
+        ' 
+        lblJukenbi.BorderStyle = BorderStyle.FixedSingle
+        lblJukenbi.Location = New Point(256, 120)
+        lblJukenbi.Name = "lblJukenbi"
+        lblJukenbi.Size = New Size(82, 23)
+        lblJukenbi.TabIndex = 9
+        lblJukenbi.Text = "受験日"
+        lblJukenbi.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' Jukenbi
+        ' 
+        Jukenbi.Location = New Point(338, 120)
+        Jukenbi.Margin = New Padding(3, 2, 3, 2)
+        Jukenbi.MustInput = False
+        Jukenbi.Name = "Jukenbi"
+        Jukenbi.Size = New Size(141, 21)
+        Jukenbi.TabIndex = 10
         ' 
         ' MForm
         ' 
         AutoScaleDimensions = New SizeF(96F, 96F)
         AutoScaleMode = AutoScaleMode.Dpi
-        ClientSize = New Size(540, 514)
+        ClientSize = New Size(540, 564)
         Controls.Add(btnDisp)
         Controls.Add(HeaderLine)
         Controls.Add(txtExamName)
@@ -346,8 +389,6 @@ Partial Class MForm
     Friend WithEvents btnOutput As Button
     Friend WithEvents btnSettings As Button
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents TargetDate As MyControls.DateYMD
-    Friend WithEvents lblTargetDate As Label
     Friend WithEvents HeaderLine As Label
     Friend WithEvents lblSumStudyTime As Label
     Friend WithEvents SumStudyTime As Label
@@ -361,5 +402,10 @@ Partial Class MForm
     Friend WithEvents lblProgress As Label
     Friend WithEvents txtStudyContent As MyControls.LabeledTextBox
     Friend WithEvents BodyPanel As Panel
+    Friend WithEvents Jukenbi As MyControls.DateYMD
+    Friend WithEvents lblJukenbi As Label
+    Friend WithEvents lblResult As Label
+    Friend WithEvents cmbResult As ComboBox
+    Friend WithEvents lbltxtTargetDate As MyControls.LabeledTextBox
 
 End Class

@@ -158,6 +158,39 @@ Public Class DateYMD
     End Sub
 
     ''' <summary>
+    ''' 年・月・日をまとめてセットする共通メソッド
+    ''' </summary>
+    ''' <param name="year"></param>
+    ''' <param name="month"></param>
+    ''' <param name="day"></param>
+    Public Sub setYMD(year As Integer, month As Integer, day As Integer)
+        SetYear(year)
+        SetMonth(month)
+        SetDay(day)
+    End Sub
+
+
+    ''' <summary>
+    ''' 年・月・日をまとめてセットする共通メソッド
+    ''' </summary>
+    ''' <param name="year"></param>
+    ''' <param name="month"></param>
+    ''' <param name="day"></param>
+    Public Sub setYMD(YMDtext As String)
+        Dim YMD As DateTime
+
+        If DateTime.TryParseExact(YMDtext, "yyyy/MM/dd", Nothing, Globalization.DateTimeStyles.None, YMD) Then
+            ' 変換成功
+            txtYear.Text = YMD.Year.ToString("0000")
+            txtMonth.Text = YMD.Month.ToString("00")
+            txtDay.Text = YMD.Day.ToString("00")
+
+        Else
+            initYMDDesign()
+        End If
+    End Sub
+
+    ''' <summary>
     ''' 年をセットする共通メソッド
     ''' </summary>
     Public Sub SetYear(year As Integer)

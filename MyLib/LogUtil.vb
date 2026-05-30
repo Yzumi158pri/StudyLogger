@@ -37,7 +37,7 @@ Public Class LogUtil
 
         Catch ex As Exception
             ' ログ書き込み自体に失敗した場合はデバッグ出力のみ
-            Debug.WriteLine($"ログ書き込み失敗: {ex.Message}")
+            Debug.WriteLine($"ログ書き込み失敗: {ex.ToString}")
         End Try
     End Sub
 
@@ -46,8 +46,8 @@ Public Class LogUtil
     ''' </summary>
     ''' <param name="ex"></param>
     Public Shared Sub ShowExeption(ex As Exception)
-        CtShowErrorDialog("エラーが発生しました: " & vbCrLf & ex.Message)
-        WriteLog("エラーが発生しました: " & ex.Message)
+        CtShowErrorDialog("エラーが発生しました: " & vbCrLf & ex.ToString)
+        WriteLog("エラーが発生しました: " & ex.ToString)
     End Sub
 
 End Class

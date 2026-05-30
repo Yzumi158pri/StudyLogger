@@ -3,6 +3,9 @@ Imports System.Windows.Forms
 
 
 Public Module ControlHelper
+
+    Private defaultBackColor As Color = SystemColors.Window
+
     ''' <summary>
     ''' 指定したコンテナ内のTextBoxの場合にフォーカス時の色変更イベントを紐づけます
     ''' </summary>
@@ -25,12 +28,14 @@ Public Module ControlHelper
 
     Private Sub Control_Enter(sender As Object, e As EventArgs)
         Dim ctrl = DirectCast(sender, Control)
+        defaultBackColor = ctrl.BackColor
         ctrl.BackColor = Color.Yellow
+
     End Sub
 
     Private Sub Control_Leave(sender As Object, e As EventArgs)
         Dim ctrl = DirectCast(sender, Control)
-        ctrl.BackColor = SystemColors.Window
+        ctrl.BackColor = defaultBackColor
     End Sub
 End Module
 
