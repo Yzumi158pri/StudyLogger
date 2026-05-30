@@ -10,6 +10,11 @@ Public Class SettingsForm
     Dim outPathBefor As String
 
     ''' <summary>
+    ''' 変更前のユーザー名を保持する変数
+    ''' </summary>
+    Dim userNameBefor As String
+
+    ''' <summary>
     ''' 編集フラグ
     ''' </summary>
     Dim modFlg As Boolean = False
@@ -63,6 +68,8 @@ Public Class SettingsForm
             MessageUtil.CtShowDialog("保存しました。")
             LogUtil.WriteLog("出力先を変更 → " & My.Settings.OutputPath)
             LogUtil.WriteLog("出力先変更前 → " & outPathBefor)
+            LogUtil.WriteLog("ユーザー名を変更 → " & My.Settings.UserName)
+            LogUtil.WriteLog("ユーザー名変更前 → " & userNameBefor)
         End Try
 
     End Sub
@@ -87,6 +94,11 @@ Public Class SettingsForm
         If outPathBefor <> txtlblOutputPath.txtText Then
             LogUtil.WriteLog("出力先をリセット → " & My.Settings.OutputPath)
             LogUtil.WriteLog("出力先リセット前 → " & tmpPath)
+        End If
+
+        If userNameBefor <> txtlblUserName.txtText Then
+            LogUtil.WriteLog("ユーザー名をリセット → " & My.Settings.UserName)
+            LogUtil.WriteLog("ユーザー名リセット前 → " & userNameBefor)
         End If
     End Sub
 
@@ -212,6 +224,8 @@ Public Class SettingsForm
         '出力先
         txtlblOutputPath.txtText = My.Settings.OutputPath
         outPathBefor = My.Settings.OutputPath
+        txtlblUserName.txtText = My.Settings.UserName
+        userNameBefor = My.Settings.UserName
 
         '出力モード
         If My.Settings.AutoOutput Then

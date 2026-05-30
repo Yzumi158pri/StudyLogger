@@ -56,7 +56,7 @@ Partial Class SettingsForm
         ' 
         ' btnReset
         ' 
-        btnReset.Location = New Point(328, 6)
+        btnReset.Location = New Point(7, 6)
         btnReset.Margin = New Padding(2)
         btnReset.Name = "btnReset"
         btnReset.Size = New Size(75, 23)
@@ -76,7 +76,7 @@ Partial Class SettingsForm
         ' 
         ' btnUpd
         ' 
-        btnUpd.Location = New Point(9, 6)
+        btnUpd.Location = New Point(338, 6)
         btnUpd.Margin = New Padding(2)
         btnUpd.Name = "btnUpd"
         btnUpd.Size = New Size(75, 23)
@@ -152,7 +152,7 @@ Partial Class SettingsForm
         ' 
         ' SettingsForm
         ' 
-        AutoScaleDimensions = New SizeF(96.0F, 96.0F)
+        AutoScaleDimensions = New SizeF(96F, 96F)
         AutoScaleMode = AutoScaleMode.Dpi
         ClientSize = New Size(527, 238)
         Controls.Add(txtlblUserName)

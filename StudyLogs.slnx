@@ -1,7 +1,7 @@
 <Solution>
   <Project Path="MyControls/MyControls.vbproj" Id="8844bffe-7250-4f81-ba6c-1a2c34029627" />
   <Project Path="Installer/Installer.vdproj" Type="Installer">
-    <Build />
+    <Build Solution="Release|*" />
   </Project>
   <Project Path="MyModules/MyModules.vbproj" Id="10060f3d-9164-4299-8c2d-2736c4c06c69" />
   <Project Path="MyLib/MyLib.vbproj" Id="d3581d2a-246b-4829-9462-140310e7cf6d" />

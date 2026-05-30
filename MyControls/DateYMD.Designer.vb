@@ -33,9 +33,10 @@ Partial Class DateYMD
         ' btnCalendar
         ' 
         btnCalendar.ForeColor = Drawing.SystemColors.ActiveBorder
-        btnCalendar.Location = New System.Drawing.Point(121, 0)
+        btnCalendar.Location = New System.Drawing.Point(106, 0)
+        btnCalendar.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         btnCalendar.Name = "btnCalendar"
-        btnCalendar.Size = New System.Drawing.Size(29, 29)
+        btnCalendar.Size = New System.Drawing.Size(25, 22)
         btnCalendar.TabIndex = 4
         btnCalendar.Text = "▼"
         btnCalendar.UseVisualStyleBackColor = True
@@ -44,62 +45,66 @@ Partial Class DateYMD
         ' 
         txtYear.ImeMode = System.Windows.Forms.ImeMode.Disable
         txtYear.Location = New System.Drawing.Point(0, 0)
+        txtYear.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         txtYear.MaxLength = 4
         txtYear.Name = "txtYear"
-        txtYear.Size = New System.Drawing.Size(40, 27)
+        txtYear.Size = New System.Drawing.Size(36, 23)
         txtYear.TabIndex = 1
         txtYear.Text = "YYYY"
         ' 
         ' txtMonth
         ' 
         txtMonth.ImeMode = System.Windows.Forms.ImeMode.Disable
-        txtMonth.Location = New System.Drawing.Point(54, 0)
+        txtMonth.Location = New System.Drawing.Point(47, 0)
+        txtMonth.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         txtMonth.MaxLength = 2
         txtMonth.Name = "txtMonth"
-        txtMonth.Size = New System.Drawing.Size(25, 27)
+        txtMonth.Size = New System.Drawing.Size(22, 23)
         txtMonth.TabIndex = 2
         txtMonth.Text = "MM"
         ' 
         ' txtDay
         ' 
         txtDay.ImeMode = System.Windows.Forms.ImeMode.Disable
-        txtDay.Location = New System.Drawing.Point(96, 0)
+        txtDay.Location = New System.Drawing.Point(84, 0)
+        txtDay.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         txtDay.MaxLength = 2
         txtDay.Name = "txtDay"
-        txtDay.Size = New System.Drawing.Size(25, 27)
+        txtDay.Size = New System.Drawing.Size(22, 23)
         txtDay.TabIndex = 3
         txtDay.Text = "DD"
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New System.Drawing.Point(40, 3)
+        Label1.Location = New System.Drawing.Point(35, 2)
         Label1.Name = "Label1"
-        Label1.Size = New System.Drawing.Size(15, 20)
+        Label1.Size = New System.Drawing.Size(12, 15)
         Label1.TabIndex = 4
         Label1.Text = "/"
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New System.Drawing.Point(81, 2)
+        Label2.Location = New System.Drawing.Point(71, 2)
         Label2.Name = "Label2"
-        Label2.Size = New System.Drawing.Size(15, 20)
+        Label2.Size = New System.Drawing.Size(12, 15)
         Label2.TabIndex = 5
         Label2.Text = "/"
         ' 
         ' DateYMD
         ' 
-        AutoScaleDimensions = New System.Drawing.SizeF(8.0F, 20.0F)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        AutoScaleDimensions = New System.Drawing.SizeF(7F, 15F)
+        AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(txtDay)
         Controls.Add(txtMonth)
         Controls.Add(txtYear)
         Controls.Add(btnCalendar)
+        Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Name = "DateYMD"
-        Size = New System.Drawing.Size(161, 28)
+        Size = New System.Drawing.Size(141, 21)
         ResumeLayout(False)
         PerformLayout()
     End Sub

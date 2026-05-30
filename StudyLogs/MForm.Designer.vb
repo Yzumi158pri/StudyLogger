@@ -29,6 +29,7 @@ Partial Class MForm
         btnOutput = New Button()
         btnSettings = New Button()
         Panel1 = New Panel()
+        btnRecord = New Button()
         HeaderLine = New Label()
         lblSumStudyTime = New Label()
         SumStudyTime = New Label()
@@ -59,7 +60,7 @@ Partial Class MForm
         cmd1.Margin = New Padding(2)
         cmd1.Name = "cmd1"
         cmd1.Size = New Size(75, 23)
-        cmd1.TabIndex = 3
+        cmd1.TabIndex = 4
         cmd1.Text = "ボタンを押せ"
         cmd1.UseVisualStyleBackColor = True
         ' 
@@ -69,7 +70,7 @@ Partial Class MForm
         btnExit.Margin = New Padding(2)
         btnExit.Name = "btnExit"
         btnExit.Size = New Size(75, 23)
-        btnExit.TabIndex = 4
+        btnExit.TabIndex = 5
         btnExit.Text = "終了"
         btnExit.UseVisualStyleBackColor = True
         ' 
@@ -105,13 +106,14 @@ Partial Class MForm
         ' 
         ' btnOutput
         ' 
-        btnOutput.Location = New Point(277, 14)
+        btnOutput.Location = New Point(165, 14)
         btnOutput.Margin = New Padding(2)
         btnOutput.Name = "btnOutput"
         btnOutput.Size = New Size(75, 23)
         btnOutput.TabIndex = 2
         btnOutput.Text = "出力"
         btnOutput.UseVisualStyleBackColor = True
+        btnOutput.Visible = False
         ' 
         ' btnSettings
         ' 
@@ -126,6 +128,7 @@ Partial Class MForm
         ' Panel1
         ' 
         Panel1.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        Panel1.Controls.Add(btnRecord)
         Panel1.Controls.Add(btnOutput)
         Panel1.Controls.Add(btnSettings)
         Panel1.Controls.Add(cmd1)
@@ -135,6 +138,15 @@ Partial Class MForm
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(538, 54)
         Panel1.TabIndex = 17
+        ' 
+        ' btnRecord
+        ' 
+        btnRecord.Location = New Point(276, 14)
+        btnRecord.Name = "btnRecord"
+        btnRecord.Size = New Size(75, 23)
+        btnRecord.TabIndex = 3
+        btnRecord.Text = "記録する"
+        btnRecord.UseVisualStyleBackColor = True
         ' 
         ' HeaderLine
         ' 
@@ -169,6 +181,7 @@ Partial Class MForm
         ' numStudyTime
         ' 
         numStudyTime.BackColor = Color.LightPink
+        numStudyTime.ImeMode = ImeMode.Disable
         numStudyTime.Location = New Point(92, 120)
         numStudyTime.Margin = New Padding(2)
         numStudyTime.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
@@ -178,6 +191,8 @@ Partial Class MForm
         ' 
         ' numProgress
         ' 
+        numProgress.DecimalPlaces = 2
+        numProgress.ImeMode = ImeMode.Disable
         numProgress.Location = New Point(92, 158)
         numProgress.Margin = New Padding(2)
         numProgress.Name = "numProgress"
@@ -407,5 +422,6 @@ Partial Class MForm
     Friend WithEvents lblResult As Label
     Friend WithEvents cmbResult As ComboBox
     Friend WithEvents lbltxtTargetDate As MyControls.LabeledTextBox
+    Friend WithEvents btnRecord As Button
 
 End Class

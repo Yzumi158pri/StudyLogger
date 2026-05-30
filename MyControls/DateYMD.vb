@@ -214,7 +214,7 @@ Public Class DateYMD
     ''' <summary>
     ''' テキストボックスを空にする共通メソッド
     ''' </summary>
-    Private Sub initYMDDesign()
+    Public Sub initYMDDesign()
         txtYear.Text = String.Empty
         txtMonth.Text = String.Empty
         txtDay.Text = String.Empty
@@ -228,7 +228,7 @@ Public Class DateYMD
     ''' False:「yyyyMMdd」の形式で返す
     ''' </param>
     ''' <returns></returns>
-    Private Function GetDate(splitFlg As Boolean) As String
+    Public Function GetDate(Optional splitFlg As Boolean = False) As String
         Dim datesStr As String
         If splitFlg Then
             datesStr = txtYear.Text + "/" + txtMonth.Text + "/" + txtDay.Text
@@ -236,6 +236,16 @@ Public Class DateYMD
             datesStr = txtYear.Text + txtMonth.Text + txtDay.Text
         End If
         Return datesStr
+    End Function
+
+    Public Function GetDateTime() As DateTime
+        Dim dateStr As String = txtYear.Text + "/" + txtMonth.Text + "/" + txtDay.Text
+        Dim result As DateTime
+        If DateTime.TryParse(dateStr, result) Then
+            Return result
+        Else
+            Return Nothing
+        End If
     End Function
 
 End Class

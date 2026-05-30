@@ -24,6 +24,20 @@ Public Class MForm
     ''' </summary>
     Private createSheetFlg As Boolean = False
 
+    ''' <summary>
+    ''' Excelファイルのパスを保持する変数
+    ''' </summary>
+    Private excelFile As String = String.Empty
+
+    ''' <summary>
+    ''' シート名を保持する変数
+    ''' </summary>
+    Private sheetName As String = String.Empty
+
+    ''' <summary>
+    ''' 合計学習時間を保持する変数
+    ''' </summary>
+    Private tmpSumStudyTime As Integer = 0
 #End Region
 
 
@@ -52,7 +66,17 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub cmd1_click(sender As Object, e As EventArgs) Handles cmd1.Click
-        MessageUtil.CtShowDialog("Button Clicked.")
+
+        ' 実行ファイルがある場所の "Templates" フォルダ内のパスを取得
+        Dim templatePath As String = IO.Path.Combine(Application.StartupPath, "Template", "【資格学習記録】_名前.xlsx")
+
+        ' ファイルの存在確認
+        If Not IO.File.Exists(templatePath) Then
+            MessageUtil.CtShowDialog("テンプレートファイルが見つかりません。")
+            Return
+        Else
+            MessageUtil.CtShowDialog("OK")
+        End If
     End Sub
 
     ''' <summary>
@@ -61,9 +85,12 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub btnDisp_Click(sender As Object, e As EventArgs) Handles btnDisp.Click
-        If chkText() = False Then
+        If chkHeadText() = False Then
             Return
         End If
+
+        createExcelFlg = False
+        createSheetFlg = False
 
         'ボディ部を表示
         dispBody()
@@ -78,7 +105,7 @@ Public Class MForm
     Private Sub btnOutput_click(sender As Object, e As EventArgs) Handles btnOutput.Click
 
         '入力チェック
-        If chkText() = False Then
+        If chkHeadText() = False Then
             Return
         End If
 
@@ -103,6 +130,11 @@ Public Class MForm
 
     End Sub
 
+    ''' <summary>
+    ''' 設定ボタンのクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
         Dim settingsForm As New SettingsForm()
         settingsForm.ShowDialog()
@@ -115,6 +147,54 @@ Public Class MForm
     ''' <param name="e"></param>
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
         Me.Close()
+    End Sub
+
+    ''' <summary>
+    ''' 記録ボタンのクリックイベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub btnRecord_Click(sender As Object, e As EventArgs) Handles btnRecord.Click
+
+        '入力チェック
+        If chkBody() = False Then
+            Return
+        End If
+
+        If MessageUtil.CtConfirm("Excelに記録しますか？") = DialogResult.No Then
+            Return
+        End If
+
+        If StudyDate.GetDateTime() <> DateTime.Now Then
+            Dim msg As String = "学習日：" & StudyDate.GetDate() & vbCrLf _
+                            & "今日の日付：" & DateTime.Now.ToString("yyyy/MM/dd") & vbCrLf _
+                            & "学習日が今日の日付と異なります。記録してもよろしいですか？" & vbCrLf _
+                            & "※学習日が重複する可能性があります。"
+            If MessageUtil.CtConfirm(msg) = DialogResult.No Then
+                Return
+            End If
+        End If
+
+        'Excelに記録する内容を保持するクラスのインスタンスを生成
+        Dim item As ExcelItems = New ExcelItems()
+
+        '記録内容をセット
+        setExcelItem(item)
+
+        'Excelに記録する処理を実装
+        If Not FileUtil.outputExcel(item, excelFile, sheetName, My.Settings.UserName, createExcelFlg, createSheetFlg) Then
+            MessageUtil.CtShowErrorDialog("Excelへの出力に失敗しました。")
+        Else
+            MessageUtil.CtShowDialog("Excelに記録しました。" _
+                                     & vbCrLf & "ファイルパス：" & excelFile _
+                                     & vbCrLf & "シート名：" & sheetName)
+            createExcelFlg = False
+            createSheetFlg = False
+            Dim strSumStudy As String = SumStudyTime.Text.Replace("時間", ":").Replace("分", "")
+            tmpSumStudyTime = strSumStudy.Split(":").Select(Function(x) CInt(x)).Aggregate(Function(a, b) a * 60 + b)
+
+        End If
+
     End Sub
 
     ''' <summary>
@@ -134,15 +214,15 @@ Public Class MForm
             If TypeOf Me.ActiveControl Is LabeledTextBox Then
                 isMultilineTextBox = DirectCast(Me.ActiveControl, LabeledTextBox).TextMultiline
             End If
-
-            If isShiftPressed AndAlso isMultilineTextBox Then
-                ' 通常の改行動作をさせたいので、横取りせずにWindows（Base）に処理を戻す
-                Return MyBase.ProcessCmdKey(msg, keyData)
-
-            Else
-                ' Shift+Enterで前のコントロールへフォーカスを移動する（False:前方へ移動、True:タブストップのみ、True:ラップする）
-                Me.SelectNextControl(Me.ActiveControl, False, True, True, True)
-                Return True
+            If isShiftPressed Then
+                If isMultilineTextBox Then
+                    ' 通常の改行動作をさせたいので、横取りせずにWindows（Base）に処理を戻す
+                    Return MyBase.ProcessCmdKey(msg, keyData)
+                Else
+                    ' Shift+Enterで前のコントロールへフォーカスを移動する（False:前方へ移動、True:タブストップのみ、True:ラップする）
+                    Me.SelectNextControl(Me.ActiveControl, False, True, True, True)
+                    Return True
+                End If
             End If
 
             ' 次のコントロールへフォーカスを移動する（True:前方へ移動、True:タブストップのみ、True:ラップする）
@@ -177,6 +257,26 @@ Public Class MForm
     End Sub
 
 
+    Private Sub numStudyTime_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles numStudyTime.Validating
+        Dim hours As Integer
+        Dim minites As Integer
+
+        If SumStudyTime.Text.Trim() = String.Empty Then
+            hours = CInt(numStudyTime.Value) \ 60
+            minites = CInt(numStudyTime.Value) Mod 60
+            SumStudyTime.Text = hours.ToString() & "時間" & minites.ToString() & "分"
+
+        Else
+            Dim totalMin As Integer = tmpSumStudyTime + CInt(numStudyTime.Value)
+            hours = totalMin \ 60
+            minites = totalMin Mod 60
+            SumStudyTime.Text = hours.ToString() & "時間" & minites.ToString() & "分"
+        End If
+
+
+    End Sub
+
+
 #End Region
 
 
@@ -203,18 +303,19 @@ Public Class MForm
 
         Dim items As FileUtil.ExcelItems = New FileUtil.ExcelItems()
 
-        Dim excelFile As String = String.Empty
 
         Try
 
             If My.Settings.AutoOutput = False Then
                 '出力先を設定
-                Using fbd As New FolderBrowserDialog()
-                    fbd.Description = "読み取りたいExcelファイルを選択してください。"
+                Using dlg As New OpenFileDialog()
+
+                    dlg.Title = "読み取りたいExcelファイルを選択してください。"
+                    dlg.Filter = "Excelファイル (*.xlsx)|*.xlsx|すべてのファイル (*.*)|*.*"
                     '現在のパスを初期値に設定
-                    fbd.SelectedPath = My.Settings.OutputPath
-                    If fbd.ShowDialog() = DialogResult.OK Then
-                        excelFile = fbd.SelectedPath
+                    dlg.InitialDirectory = My.Settings.OutputPath
+                    If dlg.ShowDialog() = DialogResult.OK Then
+                        excelFile = dlg.FileName
                     End If
                 End Using
             Else
@@ -269,8 +370,15 @@ Public Class MForm
             If dispFlg Then
                 SuspendLayout()
 
-                'ボディ部の内容を設定する処理を実装
-                setBody(items)
+
+                If Not createExcelFlg AndAlso Not createSheetFlg Then
+                    'ボディ部の内容を設定する処理を実装
+                    setBody(items)
+
+                Else
+                    resetBody()
+                End If
+
 
 
                 'ボディ部を活性
@@ -304,6 +412,7 @@ Public Class MForm
     End Sub
 
 
+
     ''' <summary>
     ''' ボディ部の内容を設定する処理
     ''' </summary>
@@ -315,26 +424,109 @@ Public Class MForm
         Jukenbi.setYMD(items.jukenbi)
         cmbResult.Text = items.result
 
-        txtStudyContent.txtText = items.studyContent
-        txtRemarks.txtText = items.remarks
+        txtStudyContent.txtText = items.studyContent.Replace(vbLf, vbCrLf).Replace(vbCr & vbCr, vbCr)
+        txtRemarks.txtText = items.remarks.Replace(vbLf, vbCrLf).Replace(vbCr & vbCr, vbCr)
 
-
+        Dim strSumStudy As String = items.sumStudyTime.Replace("時間", ":").Replace("分", "")
+        tmpSumStudyTime = strSumStudy.Split(":").Select(Function(x) CInt(x)).Aggregate(Function(a, b) a * 60 + b)
 
     End Sub
+
+    ''' <summary>
+    ''' ボディ部の内容をリセットする処理
+    ''' </summary>
+    Private Sub resetBody()
+
+        lbltxtTargetDate.txtText = String.Empty
+        SumStudyTime.Text = String.Empty
+        numStudyTime.Value = 0
+        numProgress.Value = 0
+        Jukenbi.SetToday()
+        cmbResult.SelectedIndex = -1
+        txtStudyContent.txtText = String.Empty
+        txtRemarks.txtText = String.Empty
+
+    End Sub
+
+    ''' <summary>
+    ''' Excelに記録する内容を設定
+    ''' </summary>
+    Private Sub setExcelItem(ByRef item As ExcelItems)
+
+        With item
+            'ヘッダ部
+            If createExcelFlg OrElse createSheetFlg Then
+                .examName = txtExamName.txtText
+            End If
+            .targetDate = lbltxtTargetDate.txtText
+            .jukenbi = Jukenbi.GetDate(True)
+            .result = cmbResult.Text
+
+            'テーブル部
+            .studyDate = StudyDate.GetDate(True)
+            .studyTime = CInt(numStudyTime.Value)
+            .studyContent = txtStudyContent.txtText.Replace(vbCrLf, vbLf)
+            .progress = CDec(numProgress.Value)
+            .remarks = txtRemarks.txtText.Replace(vbCrLf, vbLf)
+
+        End With
+    End Sub
+
+
+#Region "チェック"
+
 
     ''' <summary>
     ''' テキストの入力チェック
     ''' </summary>
     ''' <returns></returns>
-    Private Function chkText() As Boolean
+    Private Function chkHeadText() As Boolean
 
         If txtExamName.txtText.Trim() = String.Empty Then
             MessageUtil.CtShowChkErrDialog("資格名を入力してください")
             txtExamName.Focus()
             Return False
         Else
+            sheetName = txtExamName.txtText
             Return True
         End If
+    End Function
+
+
+    ''' <summary>
+    ''' ボディの入力チェック
+    ''' </summary>
+    ''' <returns></returns>
+    Private Function chkBody() As Boolean
+
+        '学習時間の入力チェック
+        If numStudyTime.Value <= 0 Then
+            MessageUtil.CtShowChkErrDialog("学習時間は0より大きい値を入力してください")
+            numStudyTime.Focus()
+            Return False
+        End If
+
+        '取得目標時期の入力チェック
+        If lbltxtTargetDate.txtText.Trim() = String.Empty Then
+            MessageUtil.CtShowChkErrDialog("取得目標時期を入力してください")
+            lbltxtTargetDate.Focus()
+            Return False
+        End If
+
+        If StudyDate.GetDate() = String.Empty Then
+            MessageUtil.CtShowChkErrDialog("学習日を入力してください")
+            StudyDate.Focus()
+            Return False
+        End If
+
+
+        If txtStudyContent.txtText.Trim() = String.Empty Then
+            MessageUtil.CtShowChkErrDialog("学習内容を入力してください")
+            txtStudyContent.Focus()
+            Return False
+        End If
+
+        Return True
     End Function
 
     ''' <summary>
@@ -361,6 +553,7 @@ Public Class MForm
                 '新規作成するか確認
                 If MessageUtil.CtConfirm(msg) = DialogResult.Yes Then
                     createExcelFlg = True
+                    excelFile = IO.Path.Combine(My.Settings.OutputPath, FileUtil.FILE_NAME_PATTERN & My.Settings.UserName & ".xlsx")
                     Return True
                 Else
                     Return False
@@ -381,7 +574,7 @@ Public Class MForm
         Return False
     End Function
 
-
+#End Region
 
 #End Region
 

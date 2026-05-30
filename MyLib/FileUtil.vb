@@ -56,11 +56,11 @@ Public Class FileUtil
         ''' <summary>学習日付</summary>
         Public Property studyDate As String
         ''' <summary>学習時間</summary>
-        Public Property studyTime As String
+        Public Property studyTime As Integer
         ''' <summary>学習内容</summary>
         Public Property studyContent As String
         ''' <summary>進捗状況</summary>
-        Public Property progress As String
+        Public Property progress As Decimal
         ''' <summary>備考</summary>
         Public Property remarks As String
 
@@ -103,11 +103,10 @@ Public Class FileUtil
 
     ''' <summary>Excel出力用のテンプレートファイル名</summary>
     Private Const TEMPLATE_FILE_NAME As String = "【資格学習記録】_名前.xlsx"
-    ''' <summary>Excel出力用のテンプレートファイルパス</summary>
-    Private Const TEMPLATE_FILE_PATH As String = "C:\Users\yuki_\source\repos\StudyLogs\StudyLogs\Resources\"
-
+    ''' <summary>Excel出力用のテンプレートファイルのシート名</summary>
+    Private Const TEMPLATE_SHEET_NAME As String = "tmp"
     ''' <summary>読み込み用Excelファイル名パターン</summary>
-    Private Const FILE_NAME_PATTERN As String = "【資格学習記録】_"
+    Public Const FILE_NAME_PATTERN As String = "【資格学習記録】_"
 
 #End Region
 
@@ -142,9 +141,85 @@ Public Class FileUtil
     ''' <summary>
     ''' Excelに出力する
     ''' </summary>
-    Public Shared Sub outputExcel()
+    Public Shared Function outputExcel(item As ExcelItems, excelPath As String, sheetName As String, userName As String, createExcel As Boolean, createSheet As Boolean) As Boolean
 
-    End Sub
+
+        Try
+            'テンプレートファイルのパスを取得
+            Dim templatePath As String = IO.Path.Combine(Application.StartupPath, "Template", "【資格学習記録】_名前.xlsx")
+            If createExcel Then
+                'Excelファイル作成フラグが立っている場合はテンプレートから新規作成する
+                File.Copy(templatePath, excelPath, True)
+            End If
+
+            Using workBook As New XLWorkbook(excelPath)
+
+                'シートを新規作成する場合はテンプレートからコピーしてくる
+                If createSheet Then
+                    Using tempBook As New XLWorkbook(templatePath)
+                        Dim tempSheet As IXLWorksheet = tempBook.Worksheet(TEMPLATE_SHEET_NAME)
+                        tempSheet.CopyTo(workBook, sheetName)
+                    End Using
+                End If
+
+                'ファイルを新規作成した場合はシート名を設定
+                If createExcel Then
+                    Dim newSheet As IXLWorksheet = workBook.Worksheet(TEMPLATE_SHEET_NAME)
+                    newSheet.Name = sheetName
+                End If
+
+                'シートを取得
+                Dim workSheet As IXLWorksheet = workBook.Worksheet(sheetName)
+
+                'Excelに書き込む
+                With item
+                    workSheet.Cell(CellAddress.examName).Value = .examName
+                    workSheet.Cell(CellAddress.targetDate).Value = .targetDate
+                    workSheet.Cell(CellAddress.jukenbi).Value = .jukenbi
+                    workSheet.Cell(CellAddress.result).Value = .result
+
+
+                    Dim table As IXLTable = workSheet.Tables.FirstOrDefault()
+                    If table IsNot Nothing Then
+
+                        'シートが新しい場合は最終行に書き込む。既にデータがある場合は最終行の下に新しい行を追加して書き込む。
+                        If createExcel OrElse createSheet Then
+                            table.Name = table.Name & workBook.Worksheets.Count.ToString()
+                            Dim lastRow As IXLTableRow = table.DataRange.LastRow()
+                            lastRow.Field(CellAddress.studyDate).Value = .studyDate
+                            lastRow.Field(CellAddress.studyTime).Value = .studyTime
+                            lastRow.Field(CellAddress.studyContent).Value = .studyContent
+                            lastRow.Field(CellAddress.progress).Value = .progress
+                            lastRow.Field(CellAddress.remarks).Value = .remarks
+                        Else
+                            Dim newRow As IXLTableRow = table.DataRange.LastRow().InsertRowsBelow(1).First()
+                            newRow.Field(CellAddress.studyDate).Value = .studyDate
+                            newRow.Field(CellAddress.studyTime).Value = .studyTime
+                            newRow.Field(CellAddress.studyContent).Value = .studyContent
+                            newRow.Field(CellAddress.progress).Value = .progress
+                            newRow.Field(CellAddress.remarks).Value = .remarks
+                        End If
+                    End If
+
+                    '合計学習時間の計算式を設定する（分単位で合計して、時間と分に分けて表示）
+                    Dim timeFormula As String = $"=INT(SUM({table.Name}[学習時間(分)])/60) & ""時間"" & MOD(SUM({table.Name}[学習時間(分)]), 60) & ""分"""
+                    workSheet.Cell(CellAddress.sumStudyTime).FormulaA1 = timeFormula
+                End With
+
+                workBook.Save()
+            End Using
+
+            Return True
+        Catch ex As Exception
+            LogUtil.ShowExeption(ex)
+            Return False
+        End Try
+
+
+
+
+
+    End Function
 
 
 #End Region
@@ -241,7 +316,9 @@ Public Class FileUtil
 
             'テーブルの値は最終行を取得
             .studyContent = table.DataRange.LastRow().Field(CellAddress.studyContent).GetString()
-            .progress = table.DataRange.LastRow().Field(CellAddress.progress).GetString()
+            If Not table.DataRange.LastRow().Field(CellAddress.progress).TryGetValue(Of Decimal)(.progress) Then
+                .progress = 0
+            End If
             .remarks = table.DataRange.LastRow().Field(CellAddress.remarks).GetString()
 
         End With
