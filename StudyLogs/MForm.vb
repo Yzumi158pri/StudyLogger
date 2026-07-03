@@ -213,8 +213,7 @@ Public Class MForm
         If StudyDate.GetDate() <> DateTime.Now.ToString("yyyyMMdd") Then
             Dim msg As String = "学習日：" & StudyDate.GetDate() & vbCrLf _
                             & "今日の日付：" & DateTime.Now.ToString("yyyy/MM/dd") & vbCrLf _
-                            & "学習日が今日の日付と異なります。記録してもよろしいですか？" & vbCrLf _
-                            & "※学習日が重複する可能性があります。"
+                            & "学習日が今日の日付と異なります。記録してもよろしいですか？"
             If MessageUtil.CtConfirm(msg) = DialogResult.No Then
                 Return
             End If
@@ -237,7 +236,7 @@ Public Class MForm
             createSheetFlg = False
             Dim strSumStudy As String = SumStudyTime.Text.Replace("時間", ":").Replace("分", "")
             tmpSumStudyTime = strSumStudy.Split(":").Select(Function(x) CInt(x)).Aggregate(Function(a, b) a * 60 + b)
-
+            tmpNumStudyTime = CInt(numStudyTime.Value)
         End If
 
     End Sub

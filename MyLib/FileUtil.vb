@@ -197,7 +197,7 @@ Public Class FileUtil
                     Dim table As IXLTable = workSheet.Tables.FirstOrDefault()
                     If table IsNot Nothing Then
 
-                        'シートが新しい場合は最終行に書き込む。既にデータがある場合は最終行の下に新しい行を追加して書き込む。
+                        'シートが新しい場合は最終行に書き込む。
                         If createExcel OrElse createSheet Then
                             table.Name = table.Name & workBook.Worksheets.Count.ToString()
                             Dim lastRow As IXLTableRow = table.DataRange.LastRow()
@@ -207,12 +207,28 @@ Public Class FileUtil
                             lastRow.Field(CellAddress.progress).Value = .progress / 100D
                             lastRow.Field(CellAddress.remarks).Value = .remarks
                         Else
-                            Dim newRow As IXLTableRow = table.DataRange.LastRow().InsertRowsBelow(1).First()
-                            newRow.Field(CellAddress.studyDate).Value = .studyDate
-                            newRow.Field(CellAddress.studyTime).Value = .studyTime
-                            newRow.Field(CellAddress.studyContent).Value = .studyContent
-                            newRow.Field(CellAddress.progress).Value = .progress / 100D
-                            newRow.Field(CellAddress.remarks).Value = .remarks
+                            '既にシートがある場合は学習日で行を検索する
+                            Dim searchRow As IXLTableRow = table.DataRange.Rows().FirstOrDefault(Function(x) x.Field(CellAddress.studyDate).Value = .studyDate)
+
+                            '行が存在しない場合は最終行の下に新しい行を追加して書き込む。
+                            If searchRow Is Nothing Then
+                                Dim newRow As IXLTableRow = table.DataRange.LastRow().InsertRowsBelow(1).First()
+                                newRow.Field(CellAddress.studyDate).Value = .studyDate
+                                newRow.Field(CellAddress.studyTime).Value = .studyTime
+                                newRow.Field(CellAddress.studyContent).Value = .studyContent
+                                newRow.Field(CellAddress.progress).Value = .progress / 100D
+                                newRow.Field(CellAddress.remarks).Value = .remarks
+
+                                'テーブルを学習日でソート
+                                table.Sort(CellAddress.studyDate)
+                            Else
+                                '行が存在する場合はその行に上書きする。
+                                searchRow.Field(CellAddress.studyTime).Value = .studyTime
+                                searchRow.Field(CellAddress.studyContent).Value = .studyContent
+                                searchRow.Field(CellAddress.progress).Value = .progress / 100D
+                                searchRow.Field(CellAddress.remarks).Value = .remarks
+                            End If
+
                         End If
                     End If
 
@@ -356,6 +372,10 @@ Public Class FileUtil
 
                 Else
                     '更新モードで同じ日付の行が見つからなかった場合は、NONE_RECORDを返す
+                    .studyTime = 0
+                    .studyContent = String.Empty
+                    .progress = 0
+                    .remarks = String.Empty
                     .importResult = importResult.NONE_RECORD
                 End If
 

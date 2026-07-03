@@ -200,6 +200,7 @@ Partial Class MForm
         ' 
         numProgress.DecimalPlaces = 2
         numProgress.ImeMode = ImeMode.Disable
+        numProgress.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
         numProgress.Location = New Point(92, 127)
         numProgress.Margin = New Padding(2)
         numProgress.Name = "numProgress"
