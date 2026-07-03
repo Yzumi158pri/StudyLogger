@@ -1,7 +1,9 @@
 ﻿Imports System
 Imports System.Windows.Forms
 Imports ClosedXML.Excel
+Imports DocumentFormat.OpenXml.Drawing
 Imports DocumentFormat.OpenXml.Office2013.PowerPoint.Roaming
+Imports DocumentFormat.OpenXml.Packaging
 Imports DocumentFormat.OpenXml.Spreadsheet
 Imports DocumentFormat.OpenXml.Vml
 Imports MyControls
@@ -11,6 +13,29 @@ Imports MyModules
 Imports StudyLogs.My
 
 Public Class MForm
+
+#Region "定数"
+    ''' <summary>
+    ''' 登録モード
+    ''' </summary>
+    Private Enum Mode
+        ''' <summary>
+        ''' 新規登録モード
+        ''' </summary>
+        insert = 0
+        ''' <summary>
+        ''' 編集モード
+        ''' </summary>
+        update = 1
+    End Enum
+
+    ''' <summary>
+    ''' 必須入力の背景色
+    ''' </summary>
+    Private mustInputColor As System.Drawing.Color = System.Drawing.Color.LightPink
+
+#End Region
+
 
 #Region "変数"
 
@@ -38,6 +63,11 @@ Public Class MForm
     ''' 合計学習時間を保持する変数
     ''' </summary>
     Private tmpSumStudyTime As Integer = 0
+
+    ''' <summary>
+    ''' 学習時間を保持する変数
+    ''' </summary>
+    Private tmpNumStudyTime As Integer = 0
 #End Region
 
 
@@ -146,7 +176,22 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click
-        Me.Close()
+
+        If btnExit.Text = "中止" Then
+            If MessageUtil.CtConfirm("中止してよろしいですか？") = DialogResult.Yes Then
+
+                'ボディ部を非活性
+                BodyPanel.Enabled = False
+                numStudyTime.BackColor = SystemColors.Control
+
+                resetBody()
+                'ヘッダ部を活性
+                HeaderPanel.Enabled = True
+                btnExit.Text = "終了"
+            End If
+        Else
+            Me.Close()
+        End If
     End Sub
 
     ''' <summary>
@@ -203,7 +248,7 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
-        ' 1. Enterキーが押された場合の処理
+        ' Enterキーが押された場合
         If keyData = Keys.Enter Then
 
             ' Shiftキーが同時に押されているかどうかを判定
@@ -219,22 +264,21 @@ Public Class MForm
                     ' 通常の改行動作をさせたいので、横取りせずにWindows（Base）に処理を戻す
                     Return MyBase.ProcessCmdKey(msg, keyData)
                 Else
-                    ' Shift+Enterで前のコントロールへフォーカスを移動する（False:前方へ移動、True:タブストップのみ、True:ラップする）
+                    ' Shift+Enterで前のコントロールへフォーカスを移動する
                     Me.SelectNextControl(Me.ActiveControl, False, True, True, True)
                     Return True
                 End If
             End If
 
-            ' 次のコントロールへフォーカスを移動する（True:前方へ移動、True:タブストップのみ、True:ラップする）
+            ' 次のコントロールへフォーカスを移動する
             Me.SelectNextControl(Me.ActiveControl, True, True, True, True)
 
-            ' Trueを返すことで、「このキー入力は処理済みなので、これ以上何もするな（改行するな）」とOSに伝えます
             Return True
         End If
 
-        ' 2. Escapeキーが押された場合の処理
+        ' Escapeキーが押された場合の処理
         If keyData = Keys.Escape Then
-            Me.Close()
+            btnExit_Click(Nothing, Nothing)
             Return True
         End If
 
@@ -256,7 +300,11 @@ Public Class MForm
         End If
     End Sub
 
-
+    ''' <summary>
+    ''' 学習時間の入力時イベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
     Private Sub numStudyTime_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles numStudyTime.Validating
         Dim hours As Integer
         Dim minites As Integer
@@ -267,7 +315,7 @@ Public Class MForm
             SumStudyTime.Text = hours.ToString() & "時間" & minites.ToString() & "分"
 
         Else
-            Dim totalMin As Integer = tmpSumStudyTime + CInt(numStudyTime.Value)
+            Dim totalMin As Integer = tmpSumStudyTime + CInt(numStudyTime.Value) - tmpNumStudyTime
             hours = totalMin \ 60
             minites = totalMin Mod 60
             SumStudyTime.Text = hours.ToString() & "時間" & minites.ToString() & "分"
@@ -276,6 +324,37 @@ Public Class MForm
 
     End Sub
 
+    ''' <summary>
+    ''' モード選択のテキスト変更イベント
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub lbltxtSelectMode_TextChanged(sender As Object, e As EventArgs) Handles lbltxtSelectMode.TextChangedCustom
+
+        '1,0以外が入力されている
+        If lbltxtSelectMode.txtText <> String.Empty AndAlso lbltxtSelectMode.txtText <> CStr(Mode.insert) AndAlso lbltxtSelectMode.txtText <> CStr(Mode.update) Then
+            'デフォルトは登録モード
+            lbltxtSelectMode.txtText = CStr(Mode.insert)
+            lbltxtSelectMode.TextBox.SelectionStart = lbltxtSelectMode.TextBox.Text.Length
+        End If
+
+        'モードによって学習日の活性/非活性を切り替える
+        If lbltxtSelectMode.txtText = CStr(Mode.insert) Then
+            StudyDate.SetToday()
+            StudyDate.Enabled = False
+        ElseIf lbltxtSelectMode.txtText = CStr(Mode.update) Then
+            StudyDate.Enabled = True
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' モード選択のテキストボックスにフォーカスが入ったときに全選択する
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    Private Sub lbltxtSelectMode_Enter(sender As Object, e As EventArgs) Handles lbltxtSelectMode.Enter
+        lbltxtSelectMode.TextBox.BeginInvoke(New Action(Sub() lbltxtSelectMode.TextBox.SelectAll()))
+    End Sub
 
 #End Region
 
@@ -289,6 +368,8 @@ Public Class MForm
 
         'ボディ部は非活性
         BodyPanel.Enabled = False
+        numStudyTime.BackColor = SystemColors.Control
+        lbltxtSelectMode.txtText = CStr(Mode.insert)
 
     End Sub
 
@@ -306,62 +387,22 @@ Public Class MForm
 
         Try
 
-            If My.Settings.AutoOutput = False Then
-                '出力先を設定
-                Using dlg As New OpenFileDialog()
+            dispFlg = chkFile(existExcelResult)
 
-                    dlg.Title = "読み取りたいExcelファイルを選択してください。"
-                    dlg.Filter = "Excelファイル (*.xlsx)|*.xlsx|すべてのファイル (*.*)|*.*"
-                    '現在のパスを初期値に設定
-                    dlg.InitialDirectory = My.Settings.OutputPath
-                    If dlg.ShowDialog() = DialogResult.OK Then
-                        excelFile = dlg.FileName
-                    End If
-                End Using
-            Else
-                '出力ファイルパスにExcelファイルが存在するかチェックする
-                existExcelResult = FileUtil.isExistExcel(My.Settings.OutputPath, My.Settings.UserName, excelFile)
-                '表示フラグ
-                dispFlg = chkExcel(existExcelResult)
-            End If
-
+            'チェックエラーであれば終了
             If dispFlg = False Then
                 Return
-            ElseIf dispFlg = True AndAlso existExcelResult = FileUtil.existExcel.EXIST Then
+            End If
 
+            'ファイルが存在するならシートのチェックと取込を行う
+            If dispFlg = True AndAlso existExcelResult = FileUtil.existExcel.EXIST Then
 
-                'Excelファイルが存在する場合はシートの存在もチェックする
+                If lbltxtSelectMode.txtText = CStr(Mode.insert) Then
+                    dispFlg = chkSheet_insert(existSheetResult, items)
+                ElseIf lbltxtSelectMode.txtText = CStr(Mode.update) Then
+                    dispFlg = chkSheet_update(existSheetResult, items)
+                End If
 
-                Using workbook As New XLWorkbook(excelFile)
-                    existSheetResult = FileUtil.isExistSheet(workbook, txtExamName.txtText)
-
-                    If existSheetResult = FileUtil.existSheet.EXIST Then
-                        'シートが存在する場合は内容を読み取る
-                        items = FileUtil.ReadSheet(workbook, txtExamName.txtText)
-
-
-                        If items Is Nothing Then
-                            Dim msg As String = "読み込んだファイルが正しくありません。" & vbCrLf _
-                                                & "ファイルの内容を確認してください" & vbCrLf _
-                                                & "ファイルパス：" & excelFile & vbCrLf _
-                                                & "シート名：" & txtExamName.txtText
-                            MessageUtil.CtShowChkErrDialog(msg)
-                        End If
-
-
-                    ElseIf existSheetResult = FileUtil.existSheet.NOT_EXIST Then
-                        'シートが存在しない場合は新規作成するか確認する
-                        Dim msg As String = "シートがありません。" & vbCrLf _
-                                                & "新規作成しますか？"
-                        If MessageUtil.CtConfirm(msg) = DialogResult.Yes Then
-                            createSheetFlg = True
-                        Else
-                            dispFlg = False
-                        End If
-                    Else
-                        dispFlg = False
-                    End If
-                End Using
 
 
             End If
@@ -372,17 +413,20 @@ Public Class MForm
 
 
                 If Not createExcelFlg AndAlso Not createSheetFlg Then
-                    'ボディ部の内容を設定する処理を実装
+                    'ボディ部の内容を設定する
                     setBody(items)
 
                 Else
                     resetBody()
                 End If
 
-
-
                 'ボディ部を活性
                 BodyPanel.Enabled = True
+                numStudyTime.BackColor = mustInputColor
+
+                'ヘッダ部を非活性
+                HeaderPanel.Enabled = False
+                btnExit.Text = "中止"
 
                 '学習時間をフォーカス
                 numStudyTime.Focus()
@@ -406,10 +450,137 @@ Public Class MForm
             End If
 
             MessageUtil.CtShowErrorDialog(msg)
+            'ボディを初期化
+            resetBody()
             Return
         End Try
 
     End Sub
+
+    ''' <summary>
+    ''' Excelファイルの存在チェック
+    ''' </summary>
+    ''' <param name="result">Excelファイルの存在フラグ</param>
+    ''' <returns>True：Excelファイルが存在する、または新規作成する場合
+    '''          False：Excelファイルのパスが存在せず、新規作成しない場合
+    ''' ></returns>
+    Private Function chkFile(ByRef result As FileUtil.existExcel) As Boolean
+
+        If My.Settings.AutoOutput = False Then
+            '出力先を設定
+            Using dlg As New OpenFileDialog()
+
+                dlg.Title = "読み取りたいExcelファイルを選択してください。"
+                dlg.Filter = "Excelファイル (*.xlsx)|*.xlsx|すべてのファイル (*.*)|*.*"
+                '現在のパスを初期値に設定
+                dlg.InitialDirectory = My.Settings.OutputPath
+                If dlg.ShowDialog() = DialogResult.OK Then
+                    excelFile = dlg.FileName
+                End If
+            End Using
+            '手動出力モードの場合は、Excelファイルの存在チェックは行わず、選択されたファイルを使用する
+            result = FileUtil.existExcel.EXIST
+            Return True
+        Else
+            '出力ファイルパスにExcelファイルが存在するかチェックする
+            result = FileUtil.isExistExcel(My.Settings.OutputPath, My.Settings.UserName, excelFile)
+            '表示フラグ
+            Return chkExcel(result)
+        End If
+    End Function
+
+    ''' <summary>
+    ''' シートチェックと取込（登録モード）
+    ''' </summary>
+    ''' <param name="result"></param>
+    ''' <param name="items"></param>
+    ''' <returns></returns>
+    Private Function chkSheet_insert(ByRef result As FileUtil.existSheet, ByRef items As FileUtil.ExcelItems) As Boolean
+        Using workbook As New XLWorkbook(excelFile)
+            result = FileUtil.isExistSheet(workbook, txtExamName.txtText)
+
+            If result = FileUtil.existSheet.EXIST Then
+                'シートが存在する場合は内容を読み取る
+                items = FileUtil.ReadSheet(workbook, txtExamName.txtText, True)
+
+                'すでに今日の日付で登録されている
+                If items.studyDate = StudyDate.GetDate(True) Then
+                    Dim msg As String = "すでに今日の日付で登録されています。" & vbCrLf _
+                                        & "訂正したい場合は、訂正モードで表示してください。" & vbCrLf _
+                                        & "ファイルパス：" & excelFile & vbCrLf _
+                                        & "シート名：" & txtExamName.txtText
+                    MessageUtil.CtShowChkErrDialog(msg)
+                    Return False
+                End If
+
+
+                If items Is Nothing Then
+                    Dim msg As String = "読み込んだファイルが正しくありません。" & vbCrLf _
+                                            & "ファイルの内容を確認してください" & vbCrLf _
+                                            & "ファイルパス：" & excelFile & vbCrLf _
+                                            & "シート名：" & txtExamName.txtText
+                    MessageUtil.CtShowChkErrDialog(msg)
+                    Return False
+                End If
+                Return True
+
+            ElseIf result = FileUtil.existSheet.NOT_EXIST Then
+                'シートが存在しない場合は新規作成するか確認する
+                Dim msg As String = "シートがありません。" & vbCrLf _
+                                            & "新規作成しますか？"
+                If MessageUtil.CtConfirm(msg) = DialogResult.Yes Then
+                    createSheetFlg = True
+                    Return True
+                Else
+                    Return False
+                End If
+            Else
+                Return False
+            End If
+        End Using
+    End Function
+
+    ''' <summary>
+    ''' シートチェックと取込（登録モード）
+    ''' </summary>
+    ''' <param name="result"></param>
+    ''' <param name="items"></param>
+    ''' <returns></returns>
+    Private Function chkSheet_update(ByRef result As FileUtil.existSheet, ByRef items As FileUtil.ExcelItems) As Boolean
+        Using workbook As New XLWorkbook(excelFile)
+            result = FileUtil.isExistSheet(workbook, txtExamName.txtText)
+
+            If result = FileUtil.existSheet.EXIST Then
+                'シートが存在する場合は内容を読み取る
+                items = FileUtil.ReadSheet(workbook, txtExamName.txtText, False, StudyDate.GetDate(True))
+
+                Select Case items.importResult
+                    Case FileUtil.importResult.FAIL
+                        Dim msg As String = "読み込んだファイルが正しくありません。" & vbCrLf _
+                                            & "ファイルの内容を確認してください。" & vbCrLf _
+                                            & "ファイルパス：" & excelFile & vbCrLf _
+                                            & "シート名：" & txtExamName.txtText
+                        MessageUtil.CtShowChkErrDialog(msg)
+                        Return False
+                    Case FileUtil.importResult.NONE_RECORD
+                        Dim msg As String = "シートに存在しない日付が入力されています。" & vbCrLf _
+                                            & $"学習日：{StudyDate.GetDate(True)}で新規登録を行います。"
+                        MessageUtil.CtShowDialog(msg)
+                        Return True
+                    Case Else
+                        Return True
+
+                End Select
+            Else
+                Dim msg As String = "シートが存在しません。" & vbCrLf _
+                                            & "ファイルの内容を確認してください。" & vbCrLf _
+                                            & "ファイルパス：" & excelFile & vbCrLf _
+                                            & "シート名：" & txtExamName.txtText
+                MessageUtil.CtShowChkErrDialog(msg)
+                Return False
+            End If
+        End Using
+    End Function
 
 
 
@@ -424,11 +595,15 @@ Public Class MForm
         Jukenbi.setYMD(items.jukenbi)
         cmbResult.Text = items.result
 
+        numStudyTime.Value = items.studyTime
+        tmpNumStudyTime = items.studyTime
         txtStudyContent.txtText = items.studyContent.Replace(vbLf, vbCrLf).Replace(vbCr & vbCr, vbCr)
+        numProgress.Value = items.progress
         txtRemarks.txtText = items.remarks.Replace(vbLf, vbCrLf).Replace(vbCr & vbCr, vbCr)
 
         Dim strSumStudy As String = items.sumStudyTime.Replace("時間", ":").Replace("分", "")
         tmpSumStudyTime = strSumStudy.Split(":").Select(Function(x) CInt(x)).Aggregate(Function(a, b) a * 60 + b)
+
 
     End Sub
 
@@ -437,11 +612,11 @@ Public Class MForm
     ''' </summary>
     Private Sub resetBody()
 
-        StudyDate.SetToday()
         lbltxtTargetDate.txtText = String.Empty
         SumStudyTime.Text = String.Empty
         tmpSumStudyTime = 0
         numStudyTime.Value = 0
+        tmpNumStudyTime = 0
         numProgress.Value = 0
         Jukenbi.initYMDDesign()
         cmbResult.SelectedIndex = -1
@@ -487,11 +662,17 @@ Public Class MForm
         If txtExamName.txtText.Trim() = String.Empty Then
             MessageUtil.CtShowChkErrDialog("資格名を入力してください")
             txtExamName.Focus()
-            Return False
-        Else
-            sheetName = txtExamName.txtText
-            Return True
         End If
+
+        If Convert.ToDateTime(StudyDate.GetDate(True)) > DateTime.Today Then
+            MessageUtil.CtShowChkErrDialog("未来の日付は指定できません。")
+            StudyDate.Focus()
+            Return False
+        End If
+
+        sheetName = txtExamName.txtText
+        Return True
+
     End Function
 
 

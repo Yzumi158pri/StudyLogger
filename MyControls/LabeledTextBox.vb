@@ -20,6 +20,27 @@ Public Class LabeledTextBox
 #Region "プロパティ"
 
     ''' <summary>
+    ''' ラベル部分のコントロール
+    ''' </summary>
+    ''' <returns></returns>
+    Public ReadOnly Property Label As Label
+        Get
+            Return Label1
+        End Get
+    End Property
+
+    ''' <summary>
+    ''' テキストボックス部分のコントロール
+    ''' </summary>
+    ''' <returns></returns>
+    Public ReadOnly Property TextBox As TextBox
+        Get
+            Return TextBox1
+        End Get
+    End Property
+
+
+    ''' <summary>
     ''' ラベル部分のサイズを設定・取得します
     ''' </summary>
     <Category("デザイン")>
@@ -238,6 +259,28 @@ Public Class LabeledTextBox
 
         ResizeCnt()
 
+    End Sub
+
+
+    ' 活性・非活性が変わったときの処理
+    Protected Overrides Sub OnEnabledChanged(e As EventArgs)
+        ' 親クラスの元の処理を必ず呼び出す
+        MyBase.OnEnabledChanged(e)
+
+        ' 自身の状態に応じて処理を分岐
+        If Me.Enabled Then
+
+            If _mustInput Then
+                ' 必須入力の場合は、独自の色にする
+                TextBox1.BackColor = Color.LightPink
+            Else
+                ' 非必須入力の場合は、通常の背景色にする
+                TextBox1.BackColor = SystemColors.Window
+            End If
+        Else
+            ' 非活性化したときの処理（例: 先ほどのMustInputColorなど独自の色にする）
+            TextBox1.BackColor = SystemColors.Control
+        End If
     End Sub
 #End Region
 

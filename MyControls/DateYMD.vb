@@ -61,7 +61,32 @@ Public Class DateYMD
         End If
     End Sub
 
+    ' 活性・非活性が変わったときの処理
+    Protected Overrides Sub OnEnabledChanged(e As EventArgs)
+        ' 親クラスの元の処理を必ず呼び出す
+        MyBase.OnEnabledChanged(e)
 
+        ' 自身の状態に応じて処理を分岐
+        If Me.Enabled Then
+
+            If _mustInput Then
+                ' 必須入力の場合は、独自の色にする
+                txtYear.BackColor = Color.LightPink
+                txtMonth.BackColor = Color.LightPink
+                txtDay.BackColor = Color.LightPink
+            Else
+                ' 非必須入力の場合は、通常の背景色にする
+                txtYear.BackColor = SystemColors.Window
+                txtMonth.BackColor = SystemColors.Window
+                txtDay.BackColor = SystemColors.Window
+            End If
+        Else
+            ' 非活性化したときの処理（例: 先ほどのMustInputColorなど独自の色にする）
+            txtYear.BackColor = SystemColors.Control
+            txtMonth.BackColor = SystemColors.Control
+            txtDay.BackColor = SystemColors.Control
+        End If
+    End Sub
 
 
     ' カレンダーを表示するメソッド
@@ -74,22 +99,22 @@ Public Class DateYMD
         End If
 
 
-        ' 1. 親フォームを取得
+        ' 親フォームを取得
         Dim parentForm = Me.FindForm()
         If parentForm Is Nothing Then Return
 
-        ' 2. 表示位置を計算（コントロールの左下の位置をフォーム基準で取得）
+        ' 表示位置を計算（コントロールの左下の位置をフォーム基準で取得）
         ' Me.PointToScreen(New Point(0, Me.Height)) でコントロールの左下端のスクリーン座標を取得
         ' それを parentForm.PointToClient でフォーム内の相対座標に変換
         Dim spawnPoint = parentForm.PointToClient(Me.PointToScreen(New Point(0, Me.Height)))
         _popupCalendar.Location = spawnPoint
 
-        ' 3. フォームのControlsに追加（まだ追加されていなければ）
+        ' フォームのControlsに追加（まだ追加されていなければ）
         If Not parentForm.Controls.Contains(_popupCalendar) Then
             parentForm.Controls.Add(_popupCalendar)
         End If
 
-        ' 4. 最前面に表示
+        ' 最前面に表示
         _popupCalendar.Visible = Not _popupCalendar.Visible
         _popupCalendar.BringToFront()
         _popupCalendar.Focus()
@@ -98,20 +123,20 @@ Public Class DateYMD
 
     Private Sub _popupCalendar_LostFocus(sender As Object, e As EventArgs) Handles _popupCalendar.LostFocus
 
-        ' 1. マウスの現在のスクリーン座標を取得
+        ' マウスの現在のスクリーン座標を取得
         Dim mousePos As Point = Cursor.Position
 
-        ' 2. ボタン（btnCalendar）のスクリーン上の範囲を取得
+        ' ボタン（btnCalendar）のスクリーン上の範囲を取得
         ' RectangleToScreenを使えば、ボタンの正確な位置がわかる
         Dim btnRect As Rectangle = btnCalendar.RectangleToScreen(btnCalendar.ClientRectangle)
 
-        ' 3. もしマウスがボタンの範囲内にあれば、Leaveの処理（非表示）はしない！
-        '    あとのことはボタンの Click イベントにすべて任せる。
+        ' もしマウスがボタンの範囲内にあれば、Leaveの処理（非表示）はしない！
+        ' あとのことはボタンの Click イベントにすべて任せる。
         If btnRect.Contains(mousePos) Then
             Return
         End If
 
-        ' 4. ボタン以外の場所をクリックしたなら、カレンダーを閉じる
+        ' ボタン以外の場所をクリックしたなら、カレンダーを閉じる
         _popupCalendar.Visible = False
 
     End Sub

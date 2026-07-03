@@ -37,6 +37,16 @@ Public Class FileUtil
         AN_EERROR
     End Enum
 
+
+    Public Enum importResult
+        ''' <summary>取込成功</summary>
+        SUCCESS
+        ''' <summary>データなし(訂正モードの場合)</summary>
+        NONE_RECORD
+        ''' <summary>取込失敗</summary>
+        FAIL
+    End Enum
+
     ''' <summary>
     ''' Excelデータのクラス
     ''' 読み書きに使用する
@@ -63,7 +73,8 @@ Public Class FileUtil
         Public Property progress As Decimal
         ''' <summary>備考</summary>
         Public Property remarks As String
-
+        ''' <summary>取込結果</summary>
+        Public Property importResult As importResult
 
     End Class
 
@@ -295,8 +306,9 @@ Public Class FileUtil
     ''' </summary>
     ''' <param name="workBook">開いているExcelワークブック</param>
     ''' <param name="sheetName">読み取るシート名</param>
+    ''' <param name="insFlg">新規登録フラグ</param>
     ''' <returns></returns>
-    Public Shared Function ReadSheet(workBook As XLWorkbook, sheetName As String) As ExcelItems
+    Public Shared Function ReadSheet(workBook As XLWorkbook, sheetName As String, insFlg As Boolean, Optional ByVal studyDate As String = "") As ExcelItems
 
         Dim items As ExcelItems = New ExcelItems()
 
@@ -305,7 +317,8 @@ Public Class FileUtil
         Dim table As IXLTable = workSheet.Tables.FirstOrDefault()
 
         If table Is Nothing Then
-            Return Nothing
+            items.importResult = importResult.FAIL
+            Return items
         End If
 
 
@@ -318,12 +331,35 @@ Public Class FileUtil
             .result = workSheet.Cell(CellAddress.result).GetString()
 
 
-            'テーブルの値は最終行を取得
-            .studyContent = table.DataRange.LastRow().Field(CellAddress.studyContent).GetString()
-            If Not table.DataRange.LastRow().Field(CellAddress.progress).TryGetValue(Of Decimal)(.progress) Then
-                .progress = 0
+            'テーブルの情報を取得
+            If insFlg Then
+                '新規登録の場合は最終行を取得
+                .studyDate = table.DataRange.LastRow().Field(CellAddress.studyDate).GetString()
+                .studyContent = table.DataRange.LastRow().Field(CellAddress.studyContent).GetString()
+                If Not table.DataRange.LastRow().Field(CellAddress.progress).TryGetValue(Of Decimal)(.progress) Then
+                    .progress = 0
+                End If
+                .remarks = table.DataRange.LastRow().Field(CellAddress.remarks).GetString()
+                .importResult = importResult.SUCCESS
+            Else
+                '更新の場合は同じ日付の行を取得する
+                Dim targetRow As IXLTableRow = table.DataRange.Rows().FirstOrDefault(Function(r) r.Field(CellAddress.studyDate).GetString() = studyDate)
+
+                If targetRow IsNot Nothing Then
+                    .studyTime = targetRow.Field(CellAddress.studyTime).GetValue(Of Integer)()
+                    .studyContent = targetRow.Field(CellAddress.studyContent).GetString()
+                    If Not targetRow.Field(CellAddress.progress).TryGetValue(Of Decimal)(.progress) Then
+                        .progress = 0
+                    End If
+                    .remarks = targetRow.Field(CellAddress.remarks).GetString()
+                    .importResult = importResult.SUCCESS
+
+                Else
+                    '更新モードで同じ日付の行が見つからなかった場合は、NONE_RECORDを返す
+                    .importResult = importResult.NONE_RECORD
+                End If
+
             End If
-            .remarks = table.DataRange.LastRow().Field(CellAddress.remarks).GetString()
 
         End With
 
