@@ -43,6 +43,7 @@ Partial Class DateYMD
         ' 
         ' txtYear
         ' 
+        txtYear.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         txtYear.ImeMode = System.Windows.Forms.ImeMode.Disable
         txtYear.Location = New System.Drawing.Point(0, 0)
         txtYear.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -54,6 +55,7 @@ Partial Class DateYMD
         ' 
         ' txtMonth
         ' 
+        txtMonth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         txtMonth.ImeMode = System.Windows.Forms.ImeMode.Disable
         txtMonth.Location = New System.Drawing.Point(47, 0)
         txtMonth.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -65,6 +67,7 @@ Partial Class DateYMD
         ' 
         ' txtDay
         ' 
+        txtDay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         txtDay.ImeMode = System.Windows.Forms.ImeMode.Disable
         txtDay.Location = New System.Drawing.Point(84, 0)
         txtDay.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -96,15 +99,15 @@ Partial Class DateYMD
         ' 
         AutoScaleDimensions = New System.Drawing.SizeF(7F, 15F)
         AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Controls.Add(txtYear)
+        Controls.Add(txtMonth)
+        Controls.Add(txtDay)
         Controls.Add(Label2)
         Controls.Add(Label1)
-        Controls.Add(txtDay)
-        Controls.Add(txtMonth)
-        Controls.Add(txtYear)
         Controls.Add(btnCalendar)
         Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Name = "DateYMD"
-        Size = New System.Drawing.Size(141, 21)
+        Size = New System.Drawing.Size(136, 26)
         ResumeLayout(False)
         PerformLayout()
     End Sub
