@@ -188,7 +188,7 @@ Partial Class MForm
         ' 
         numStudyTime.BackColor = Color.LightPink
         numStudyTime.ImeMode = ImeMode.Disable
-        numStudyTime.Location = New Point(92, 89)
+        numStudyTime.Location = New Point(99, 89)
         numStudyTime.Margin = New Padding(2)
         numStudyTime.Maximum = New Decimal(New Integer() {9999, 0, 0, 0})
         numStudyTime.Name = "numStudyTime"
@@ -200,8 +200,7 @@ Partial Class MForm
         ' 
         numProgress.DecimalPlaces = 2
         numProgress.ImeMode = ImeMode.Disable
-        numProgress.Increment = New Decimal(New Integer() {1, 0, 0, 131072})
-        numProgress.Location = New Point(92, 127)
+        numProgress.Location = New Point(99, 127)
         numProgress.Margin = New Padding(2)
         numProgress.Name = "numProgress"
         numProgress.Size = New Size(86, 23)
@@ -226,7 +225,7 @@ Partial Class MForm
         lblStudyTime.Location = New Point(34, 89)
         lblStudyTime.Margin = New Padding(2, 0, 2, 0)
         lblStudyTime.Name = "lblStudyTime"
-        lblStudyTime.Size = New Size(58, 23)
+        lblStudyTime.Size = New Size(65, 23)
         lblStudyTime.TabIndex = 7
         lblStudyTime.Text = "学習時間"
         ' 
@@ -278,9 +277,9 @@ Partial Class MForm
         lblProgress.Location = New Point(34, 127)
         lblProgress.Margin = New Padding(2, 0, 2, 0)
         lblProgress.Name = "lblProgress"
-        lblProgress.Size = New Size(58, 23)
+        lblProgress.Size = New Size(65, 23)
         lblProgress.TabIndex = 11
-        lblProgress.Text = "進捗率"
+        lblProgress.Text = "進捗率(%)"
         ' 
         ' txtStudyContent
         ' 

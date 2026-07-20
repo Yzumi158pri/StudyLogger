@@ -1,4 +1,5 @@
 ﻿Imports System
+Imports System.Text
 Imports System.Windows.Forms
 Imports ClosedXML.Excel
 Imports DocumentFormat.OpenXml.Drawing
@@ -81,6 +82,7 @@ Public Class MForm
     Private Sub main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MessageUtil.CtShowDialog("Hello, World.")
         LogUtil.WriteLog("opened : " & Me.Name)
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
 
         'フォーム全体にフォーカスイベントを設定
         SetFocusColorEvent(Me)
@@ -329,6 +331,9 @@ Public Class MForm
     ''' <param name="sender"></param>
     ''' <param name="e"></param>
     Private Sub lbltxtSelectMode_TextChanged(sender As Object, e As EventArgs) Handles lbltxtSelectMode.TextChangedCustom
+
+        '全角数字を半角数字に変換する
+        lbltxtSelectMode.txtText = StrConv(lbltxtSelectMode.txtText, VbStrConv.Narrow)
 
         '1,0以外が入力されている
         If lbltxtSelectMode.txtText <> String.Empty AndAlso lbltxtSelectMode.txtText <> CStr(Mode.insert) AndAlso lbltxtSelectMode.txtText <> CStr(Mode.update) Then
@@ -597,7 +602,7 @@ Public Class MForm
         numStudyTime.Value = items.studyTime
         tmpNumStudyTime = items.studyTime
         txtStudyContent.txtText = items.studyContent.Replace(vbLf, vbCrLf).Replace(vbCr & vbCr, vbCr)
-        numProgress.Value = items.progress
+        numProgress.Value = items.progress * 100D
         txtRemarks.txtText = items.remarks.Replace(vbLf, vbCrLf).Replace(vbCr & vbCr, vbCr)
 
         Dim strSumStudy As String = items.sumStudyTime.Replace("時間", ":").Replace("分", "")

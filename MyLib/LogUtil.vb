@@ -16,19 +16,19 @@ Public Class LogUtil
     ''' <param name="message"></param>
     Public Shared Sub WriteLog(message As String)
         Try
-            ' 1. フォルダがなければ作成
+            ' フォルダがなければ作成
             If Not Directory.Exists(LogDirPath) Then
                 Directory.CreateDirectory(LogDirPath)
             End If
 
-            ' 2. ファイル名を決定（1日ごとにファイル分ける：Log_20260407.log）
+            ' ファイル名を決定（1日ごとにファイル分ける：Log_20260407.log）
             Dim fileName As String = $"Log_{DateTime.Now:yyyyMMdd}.log"
             Dim filePath As String = Path.Combine(LogDirPath, fileName)
 
-            ' 3. ログ内容の組み立て
+            ' ログ内容の組み立て
             Dim logLine As String = $"{DateTime.Now:yyyy/MM/dd HH:mm:ss} : {message}{Environment.NewLine}"
 
-            ' 4. ファイルへ追記（UTF-8, 共有モードを考慮した書き込み）
+            ' ファイルへ追記（UTF-8, 共有モードを考慮した書き込み）
             ' AppendAllTextは自動でファイルを開閉してくれるので安全です
             File.AppendAllText(filePath, logLine, Encoding.UTF8)
 
