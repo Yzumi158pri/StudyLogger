@@ -239,6 +239,16 @@ Public Class MForm
             Dim strSumStudy As String = SumStudyTime.Text.Replace("時間", ":").Replace("分", "")
             tmpSumStudyTime = strSumStudy.Split(":").Select(Function(x) CInt(x)).Aggregate(Function(a, b) a * 60 + b)
             tmpNumStudyTime = CInt(numStudyTime.Value)
+
+            'ボディの表示を終了
+            'ボディ部を非活性
+            BodyPanel.Enabled = False
+            numStudyTime.BackColor = SystemColors.Control
+
+            resetBody()
+            'ヘッダ部を活性
+            HeaderPanel.Enabled = True
+            btnExit.Text = "終了"
         End If
 
     End Sub
@@ -480,6 +490,9 @@ Public Class MForm
                 dlg.InitialDirectory = My.Settings.OutputPath
                 If dlg.ShowDialog() = DialogResult.OK Then
                     excelFile = dlg.FileName
+                Else
+                    'キャンセルされた場合は処理を中止する
+                    Return False
                 End If
             End Using
             '手動出力モードの場合は、Excelファイルの存在チェックは行わず、選択されたファイルを使用する
@@ -666,6 +679,7 @@ Public Class MForm
         If txtExamName.txtText.Trim() = String.Empty Then
             MessageUtil.CtShowChkErrDialog("資格名を入力してください")
             txtExamName.Focus()
+            Return False
         End If
 
         If Convert.ToDateTime(StudyDate.GetDate(True)) > DateTime.Today Then

@@ -61,13 +61,14 @@ Partial Class MForm
         ' 
         ' cmd1
         ' 
-        cmd1.Location = New Point(347, 14)
+        cmd1.Location = New Point(266, 14)
         cmd1.Margin = New Padding(2)
         cmd1.Name = "cmd1"
         cmd1.Size = New Size(97, 23)
         cmd1.TabIndex = 4
         cmd1.Text = "ファイルチェック"
         cmd1.UseVisualStyleBackColor = True
+        cmd1.Visible = False
         ' 
         ' btnExit
         ' 
@@ -147,7 +148,7 @@ Partial Class MForm
         ' 
         ' btnRecord
         ' 
-        btnRecord.Location = New Point(267, 14)
+        btnRecord.Location = New Point(368, 14)
         btnRecord.Name = "btnRecord"
         btnRecord.Size = New Size(75, 23)
         btnRecord.TabIndex = 3

@@ -184,14 +184,17 @@ Public Class FileUtil
 
                 'Excelに書き込む
                 With item
-                    workSheet.Cell(CellAddress.examName).Value = .examName
-                    workSheet.Cell(CellAddress.targetDate).Value = .targetDate
-                    If .jukenbi <> "//" Then
-                        workSheet.Cell(CellAddress.jukenbi).Value = .jukenbi
-                    Else
-                        workSheet.Cell(CellAddress.jukenbi).Value = "未定"
+                    'シートを新規作成する場合は資格名を設定
+                    If createSheet Then
+                        workSheet.Cell(CellAddress.examName).Value = .examName      '資格名
                     End If
-                    workSheet.Cell(CellAddress.result).Value = .result
+                    workSheet.Cell(CellAddress.targetDate).Value = .targetDate      '取得目標時期
+                    If .jukenbi <> "//" Then
+                        workSheet.Cell(CellAddress.jukenbi).Value = .jukenbi        '受験日
+                    Else
+                        workSheet.Cell(CellAddress.jukenbi).Value = "未定"          '受験日が空の場合は「未定」と表示する
+                    End If
+                    workSheet.Cell(CellAddress.result).Value = .result              '受験結果
 
 
                     Dim table As IXLTable = workSheet.Tables.FirstOrDefault()
@@ -201,11 +204,11 @@ Public Class FileUtil
                         If createExcel OrElse createSheet Then
                             table.Name = table.Name & workBook.Worksheets.Count.ToString()
                             Dim lastRow As IXLTableRow = table.DataRange.LastRow()
-                            lastRow.Field(CellAddress.studyDate).Value = .studyDate
-                            lastRow.Field(CellAddress.studyTime).Value = .studyTime
-                            lastRow.Field(CellAddress.studyContent).Value = .studyContent
-                            lastRow.Field(CellAddress.progress).Value = .progress / 100D
-                            lastRow.Field(CellAddress.remarks).Value = .remarks
+                            lastRow.Field(CellAddress.studyDate).Value = .studyDate             '学習日
+                            lastRow.Field(CellAddress.studyTime).Value = .studyTime             '学習時間
+                            lastRow.Field(CellAddress.studyContent).Value = .studyContent       '学習内容
+                            lastRow.Field(CellAddress.progress).Value = .progress / 100D        '進捗率
+                            lastRow.Field(CellAddress.remarks).Value = .remarks                 '備考
                         Else
                             '既にシートがある場合は学習日で行を検索する
                             Dim searchRow As IXLTableRow = table.DataRange.Rows().FirstOrDefault(Function(x) x.Field(CellAddress.studyDate).Value = .studyDate)
@@ -213,20 +216,20 @@ Public Class FileUtil
                             '行が存在しない場合は最終行の下に新しい行を追加して書き込む。
                             If searchRow Is Nothing Then
                                 Dim newRow As IXLTableRow = table.DataRange.LastRow().InsertRowsBelow(1).First()
-                                newRow.Field(CellAddress.studyDate).Value = .studyDate
-                                newRow.Field(CellAddress.studyTime).Value = .studyTime
-                                newRow.Field(CellAddress.studyContent).Value = .studyContent
-                                newRow.Field(CellAddress.progress).Value = .progress / 100D
-                                newRow.Field(CellAddress.remarks).Value = .remarks
+                                newRow.Field(CellAddress.studyDate).Value = .studyDate          '学習日
+                                newRow.Field(CellAddress.studyTime).Value = .studyTime          '学習時間
+                                newRow.Field(CellAddress.studyContent).Value = .studyContent    '学習内容
+                                newRow.Field(CellAddress.progress).Value = .progress / 100D     '進捗率
+                                newRow.Field(CellAddress.remarks).Value = .remarks              '備考
 
                                 'テーブルを学習日でソート
                                 table.Sort(CellAddress.studyDate)
                             Else
                                 '行が存在する場合はその行に上書きする。
-                                searchRow.Field(CellAddress.studyTime).Value = .studyTime
-                                searchRow.Field(CellAddress.studyContent).Value = .studyContent
-                                searchRow.Field(CellAddress.progress).Value = .progress / 100D
-                                searchRow.Field(CellAddress.remarks).Value = .remarks
+                                searchRow.Field(CellAddress.studyTime).Value = .studyTime       '学習時間
+                                searchRow.Field(CellAddress.studyContent).Value = .studyContent '学習内容
+                                searchRow.Field(CellAddress.progress).Value = .progress / 100D  '進捗率
+                                searchRow.Field(CellAddress.remarks).Value = .remarks           '備考
                             End If
 
                         End If
@@ -234,7 +237,7 @@ Public Class FileUtil
 
                     '合計学習時間の計算式を設定する（分単位で合計して、時間と分に分けて表示）
                     Dim timeFormula As String = $"=INT(SUM({table.Name}[学習時間(分)])/60) & ""時間"" & MOD(SUM({table.Name}[学習時間(分)]), 60) & ""分"""
-                    workSheet.Cell(CellAddress.sumStudyTime).FormulaA1 = timeFormula
+                    workSheet.Cell(CellAddress.sumStudyTime).FormulaA1 = timeFormula            '合計学習時間
                 End With
 
                 workBook.Save()
