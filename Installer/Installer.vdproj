@@ -331,7 +331,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_5ACFC7854C7C49E99BC6B8A494C932B8"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_39F4306A5704463B886CE5842B1F9F53"
             {
             "Name" = "8:StudyLogger"
             "Arguments" = "8:"
@@ -760,7 +760,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_33EB3EF3C5114AA487E0A4DDE94C2352"
             {
-            "SourcePath" = "8:..\\StudyLogs\\obj\\Debug\\net10.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\StudyLogs\\obj\\Release\\net10.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_861151F70C714CFC88DDF0E9CA13B71C"
@@ -788,7 +788,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B8EE3EC58D5141F4ABEFBCFB8208CDE4"
             {
-            "SourcePath" = "8:..\\StudyLogs\\obj\\Debug\\net10.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\StudyLogs\\obj\\Release\\net10.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_861151F70C714CFC88DDF0E9CA13B71C"
@@ -816,7 +816,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FD8F5EF3EB1C41C1821AF9701872167E"
             {
-            "SourcePath" = "8:..\\StudyLogs\\obj\\Debug\\net10.0-windows\\StudyLogs.dll"
+            "SourcePath" = "8:..\\StudyLogs\\obj\\Release\\net10.0-windows\\StudyLogs.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_861151F70C714CFC88DDF0E9CA13B71C"

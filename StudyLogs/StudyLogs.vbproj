@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="icon\icon.ico" />
     <Content Include="template\【資格学習記録】_名前.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -63,9 +62,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="icon\icon.ico">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <None Update="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -75,6 +71,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="icon\" />
   </ItemGroup>
 
 </Project>
