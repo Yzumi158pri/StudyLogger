@@ -1,7 +1,7 @@
 # StudyLogs
 
-## インストール
+## 概要
+資格学習などの学習内容をExcelに自動出力するアプリケーションです。
 
-最新版のインストーラーはこちらからダウンロードできます。
-
-[Download Installer](https://github.com/ユーザー名/リポジトリ名/Document\Installer)
+## ダウンロード
+[⬇️ StudyLogsをダウンロード](https://github.com/Yzumi158pri/StudyLogs/releases/latest/download/Installer.zip)
