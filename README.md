@@ -5,5 +5,5 @@
 
 ## ダウンロード
 [⬇️ StudyLogsをダウンロード](https://github.com/Yzumi158pri/StudyLogs/releases/latest/download/StudyLogger_Installer.zip)
-[⬇️ 操作方法はこちら](https://github.com/Yzumi158pri/StudyLogs/releases/latest/download/StudyLogger_Manual.xlsx
-)
+
+[⬇️ 操作方法はこちら](https://github.com/Yzumi158pri/StudyLogs/releases/latest/download/StudyLogger_Manual.xlsx)
