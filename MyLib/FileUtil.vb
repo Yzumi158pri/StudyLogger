@@ -184,8 +184,8 @@ Public Class FileUtil
 
                 'Excelに書き込む
                 With item
-                    'シートを新規作成する場合は資格名を設定
-                    If createSheet Then
+                    'ファイルまたはシートを新規作成する場合は資格名を設定
+                    If createExcel OrElse createSheet Then
                         workSheet.Cell(CellAddress.examName).Value = .examName      '資格名
                     End If
                     workSheet.Cell(CellAddress.targetDate).Value = .targetDate      '取得目標時期

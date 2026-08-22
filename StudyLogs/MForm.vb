@@ -189,7 +189,10 @@ Public Class MForm
                 resetBody()
                 'ヘッダ部を活性
                 HeaderPanel.Enabled = True
+                'ボタン制御
                 btnExit.Text = "終了"
+                btnRecord.Enabled = False
+                btnSettings.Enabled = True
             End If
         Else
             Me.Close()
@@ -248,7 +251,10 @@ Public Class MForm
             resetBody()
             'ヘッダ部を活性
             HeaderPanel.Enabled = True
+            'ボタン制御
             btnExit.Text = "終了"
+            btnRecord.Enabled = False
+            btnSettings.Enabled = True
         End If
 
     End Sub
@@ -385,6 +391,9 @@ Public Class MForm
         numStudyTime.BackColor = SystemColors.Control
         lbltxtSelectMode.txtText = CStr(Mode.insert)
 
+        '記録ボタン非活性
+        btnRecord.Enabled = False
+
     End Sub
 
     ''' <summary>
@@ -440,7 +449,12 @@ Public Class MForm
 
                 'ヘッダ部を非活性
                 HeaderPanel.Enabled = False
+
+                'ボタン制御
                 btnExit.Text = "中止"
+                btnRecord.Enabled = True
+                btnSettings.Enabled = False
+
 
                 '学習時間をフォーカス
                 numStudyTime.Focus()
