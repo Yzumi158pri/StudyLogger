@@ -167,7 +167,7 @@ Partial Class MForm
         ' lblSumStudyTime
         ' 
         lblSumStudyTime.BorderStyle = BorderStyle.FixedSingle
-        lblSumStudyTime.Location = New Point(291, 18)
+        lblSumStudyTime.Location = New Point(242, 13)
         lblSumStudyTime.Margin = New Padding(2, 0, 2, 0)
         lblSumStudyTime.Name = "lblSumStudyTime"
         lblSumStudyTime.Size = New Size(82, 23)
@@ -178,7 +178,7 @@ Partial Class MForm
         ' SumStudyTime
         ' 
         SumStudyTime.BorderStyle = BorderStyle.FixedSingle
-        SumStudyTime.Location = New Point(372, 18)
+        SumStudyTime.Location = New Point(323, 13)
         SumStudyTime.Margin = New Padding(2, 0, 2, 0)
         SumStudyTime.Name = "SumStudyTime"
         SumStudyTime.Size = New Size(121, 23)
@@ -331,7 +331,7 @@ Partial Class MForm
         lbltxtTargetDate.LabelSize = New Size(82, 23)
         lbltxtTargetDate.LabelWidth = 82
         lbltxtTargetDate.lblText = "取得目標時期"
-        lbltxtTargetDate.Location = New Point(291, 56)
+        lbltxtTargetDate.Location = New Point(242, 51)
         lbltxtTargetDate.Margin = New Padding(0)
         lbltxtTargetDate.MustInput = True
         lbltxtTargetDate.Name = "lbltxtTargetDate"
@@ -350,7 +350,7 @@ Partial Class MForm
         ' 
         cmbResult.FormattingEnabled = True
         cmbResult.Items.AddRange(New Object() {"学習中", "合格", "不合格", "合否待ち"})
-        cmbResult.Location = New Point(373, 132)
+        cmbResult.Location = New Point(324, 127)
         cmbResult.Name = "cmbResult"
         cmbResult.Size = New Size(120, 23)
         cmbResult.TabIndex = 14
@@ -358,7 +358,7 @@ Partial Class MForm
         ' lblResult
         ' 
         lblResult.BorderStyle = BorderStyle.FixedSingle
-        lblResult.Location = New Point(291, 132)
+        lblResult.Location = New Point(242, 127)
         lblResult.Name = "lblResult"
         lblResult.Size = New Size(82, 23)
         lblResult.TabIndex = 13
@@ -368,7 +368,7 @@ Partial Class MForm
         ' lblJukenbi
         ' 
         lblJukenbi.BorderStyle = BorderStyle.FixedSingle
-        lblJukenbi.Location = New Point(291, 94)
+        lblJukenbi.Location = New Point(242, 89)
         lblJukenbi.Name = "lblJukenbi"
         lblJukenbi.Size = New Size(82, 23)
         lblJukenbi.TabIndex = 9
@@ -377,7 +377,7 @@ Partial Class MForm
         ' 
         ' Jukenbi
         ' 
-        Jukenbi.Location = New Point(373, 94)
+        Jukenbi.Location = New Point(324, 89)
         Jukenbi.Margin = New Padding(3, 2, 3, 2)
         Jukenbi.MustInput = False
         Jukenbi.Name = "Jukenbi"
